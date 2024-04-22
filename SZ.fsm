@@ -10,7 +10,7 @@ INT: 0-9 -> INT
 e E -> FLT_E 
 \n -> GOOD 
 . -> FLT
-FLT_E: 0-9 -> FLT_L
+FLT_E: \- + 0-9 -> FLT_L
 * -> BAD
 FLT_L: 0-9 -> FLT_L
 * -> BAD
