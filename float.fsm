@@ -1,0 +1,21 @@
+START=FLT
+
+FLT:	0-9		-> FLT_F
+		*		-> BAD
+FLT_F:	0-9		-> FLT_F
+		e E		-> FLT_E
+		.		-> FLT_S
+		*		-> BAD
+FLT_S:	0-9		-> FLT_S
+		e E		-> FLT_E
+		\n		-> GOOD
+		*		-> BAD
+FLT_P: 	0-9		-> FLT_L
+		*		-> BAD
+FLT_E:	0-9 	-> FLT_L
+		+ \-     -> FLT_P
+		*		-> BAD
+FLT_L:	0-9		-> FLT_L
+		\n		-> GOOD
+		*		-> BAD
+GOOD(OK):

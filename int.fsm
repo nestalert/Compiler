@@ -1,0 +1,21 @@
+START=INT
+
+INT:	1-9	-> INT_NZ
+		0 -> INT_Z
+		*	-> BAD
+INT_NZ:	0-9	-> INT_NZ
+		\n	-> GOOD
+		*	-> BAD
+INT_Z:	x X -> INT_X
+		0-7 -> INT_O
+		\n -> GOOD
+		* -> BAD
+INT_X:	0-9 a-f A-F -> INT_SX
+		* -> BAD
+INT_SX:	0-9 a-f A-F -> INT_SX
+		\n -> GOOD
+		* -> BAD		
+INT_O: 	0-7 -> INT_O
+		\n -> GOOD
+		* -> BAD
+GOOD(OK):
