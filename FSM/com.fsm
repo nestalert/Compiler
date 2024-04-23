@@ -1,4 +1,3 @@
-//στα σχολια πολλαπων γραμμων βγαζει good αλλα δε δεχεται το \n και δε βγαζει yes
 
 START = COM
 
@@ -19,8 +18,10 @@ COM_M:
     \* -> COM_C
 COM_C: 
     * -> COM_M
-    / -> GOOD
+    / -> COM_E
     EOF -> BAD
-
+COM_E:
+    \n -> GOOD
+    * -> BAD
 GOOD(OK):
 
