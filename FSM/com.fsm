@@ -1,19 +1,24 @@
+//Θέλει διόρθωση στα σχόλια πολλών γραμμών
 START = COM
 
-COM: * -> COM
-/ -> COM_S
-EOF -> BAD
-COM_S: * -> COM
-/ -> COM_L
-\* -> COM_M
-COM_L: * ->COM_L
-\n -> GOOD
-COM_M: * -> COM_M
-EOF -> BAD
-\* -> COM_C
-COM_C: * -> COM_M
-/ -> GOOD
-EOF -> BAD
+COM: 
+    * -> COM
+    / -> COM_S
+    EOF -> BAD
+    COM_S: * -> COM
+    / -> COM_L
+    \* -> COM_M
+COM_L: 
+    * ->COM_L
+    \n -> GOOD
+COM_M: 
+    * -> COM_M
+    EOF -> BAD
+    \* -> COM_C
+COM_C: 
+    * -> COM_M
+    / -> GOOD
+    EOF -> BAD
 
 GOOD(OK):
 

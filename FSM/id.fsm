@@ -1,9 +1,11 @@
-START = ID
+!START = ID
 
-ID: A-Z a-z _ -> ID_1
-* -> BAD
-ID_1: A-Z a-z _ 0-9 -> ID_1
-\n -> GOOD
-* -> BAD
+ID: 
+    A-Z a-z _ -> ID_1
+    * -> BAD
+ID_1: 
+    A-Z a-z _ 0-9 -> ID_1
+    \n -> GOOD
+    * -> BAD
 
 GOOD(OK):
