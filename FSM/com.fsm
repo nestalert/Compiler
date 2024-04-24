@@ -23,5 +23,6 @@ COM_C:
 COM_E:
     \n -> GOOD
     * -> BAD
+    
 GOOD(OK):
 
