@@ -6,7 +6,6 @@ STR:
 STR_S: 
     * -> STR_S
     \\ -> STR_B
-    " -> STR_E
     \n -> BAD
 STR_E: 
     * -> BAD
