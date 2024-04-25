@@ -3,10 +3,10 @@ START=SEP
 //Δέχεται το χαρακτήρα space και tab οτιδήποτε άλλο οδηγεί στην κατάσταση bad
 SEP:    \s    -> SEP_R
         \t    -> SEP_R
-        *     -> GOOD
+        *     -> BAD
 SEP_R:  \s    -> SEP_R
         \t    -> SEP_R
-        *     -> GOOD
+        *     -> BAD
 
 BAD:
     // Έξοδος bad
