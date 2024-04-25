@@ -1,12 +1,19 @@
 START=STR
 
-STR: * -> BAD
-" -> STR_S
-STR_S: * -> STR_S
-" -> STR_E
-\\\n -> BAD
-STR_E: * -> BAD
-\n -> GOOD
-
+STR: 
+    * -> BAD
+    " -> STR_S
+STR_S: 
+    * -> STR_S
+    \\ -> STR_B
+    " -> STR_E
+    \n -> BAD
+STR_E: 
+    * -> BAD
+    \n -> GOOD
+STR_B:
+    " -> STR_S
+    * -> STR_S
 GOOD(OK):
+
 
