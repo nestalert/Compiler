@@ -6,7 +6,7 @@ SEP:    \s    -> SEP_R
         *     -> BAD
 SEP_R:  \s    -> SEP_R
         \t    -> SEP_R
-        *     -> BAD
+        *     -> GOOD
         \n -> GOOD
 
 BAD:
