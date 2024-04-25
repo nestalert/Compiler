@@ -7,6 +7,7 @@ SEP:    \s    -> SEP_R
 SEP_R:  \s    -> SEP_R
         \t    -> SEP_R
         *     -> BAD
+        \n -> GOOD
 
 BAD:
     // Έξοδος bad
