@@ -1,3 +1,4 @@
-	Line=1, token=INTCONST, value="58"
-	Line=2, token=INTCONST, value="135"
-	Line=3, token=INTCONST, value="4321"
+	Line=1, token=ID, value="_id"
+	Line=2, token=INT, value="0x58"
+	Line=3, token=FLOAT, value="0e0"
+	Line=4, token=STR, value=""Stringy""

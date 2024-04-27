@@ -18,7 +18,6 @@ ID		[A-Za-z_][A-Za-z0-9_]{0,32}
 FLOAT		[0-9]+((\.[0-9]+)([eE][+-]?[0-9]*)?|([eE][+-]?[0-9]*)+) 
 STR		["]([^"\\\n]|\\.|\\\n)*["]
 /* Αυτό εδώ γαμάει όλο το πρόγραμμα. Φταίνε τα slash; COM		^\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/ */  
-CATCHALL	([^\s]+)
 
 
 %%
@@ -28,14 +27,12 @@ CATCHALL	([^\s]+)
 {ID}		{ return ID; }
 {FLOAT}		{ return FLOAT; }
 {STR}		{ return STR; }
-{COM}		{}
-{CATCHALL}	{ return CATCHALL; }
 \n              { line++; printf("\n"); }
 <<EOF>>		{ printf("#END-OF-FILE#\n"); exit(0); }
 
 %%
 
-char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR", "COM", "CATCHALL"};
+char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR"};
 
 int main(int argc, char **argv){
         int token;
