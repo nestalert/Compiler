@@ -2,9 +2,9 @@ START=SZ
 
 SZ: 1-9 -> INT
 A-Z a-z _ -> TOKEN
-\s -> SEP
-" -> STR
-/ -> COM
+\s -> SEP 
+" -> STR_1
+/ -> COM_S
 0 -> INT_Z
 * -> BAD
 
