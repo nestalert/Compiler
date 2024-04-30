@@ -16,7 +16,8 @@ INT	        0[xX][0-9a-fA-F]+|[1-9][0-9]*|0[0-7]+|0\b
 ID		[A-Za-z_][A-Za-z0-9_]{0,32}
 FLOAT		[0-9]+((\.[0-9]+)([eE][+-]?[0-9]*)?|([eE][+-]?[0-9]*)+) 
 STR		["]([^"\\\n]|\\.|\\\n)*["]
-/* Αυτό εδώ γαμάει όλο το πρόγραμμα. Φταίνε τα slash; COM		^\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/ */  
+COM_S		\/\/.*$
+COM_M           ^(\/\*).*(\*\/)$
 CATCHALL        ^[^#\r\n].*  
 
 %%
@@ -27,13 +28,15 @@ CATCHALL        ^[^#\r\n].*
 {ID}		{ return TK_ID; }
 {FLOAT}		{ return TK_FLOAT; }
 {STR}		{ return TK_STR; }
+{COM_S}         { return TK_COM; }
+{COM_M}         { return TK_COM; }
 \n              { line++; printf("\n"); }
 {CATCHALL}      {return TK_CATCHALL; }
 <<EOF>>		{ printf("#END-OF-FILE#\n"); exit(0); }
 
 %%
 
-char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","CATCHALL"};
+char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","COM", "CATCHALL"};
 
 int main(int argc, char **argv){
         int token;
@@ -62,6 +65,11 @@ int main(int argc, char **argv){
 
         while( (token=yylex()) >= 0)
 	{
+                if(token==6)
+                {
+                fprintf(yyout, "\tLine=%d, UNKNOWN TOKEN, value=\"%s\"\n", line, yytext);
+                continue;
+                }        
                 fprintf(yyout, "\tLine=%d, token=%s, value=\"%s\"\n", line, tk[token], yytext);
         }
         return 0;

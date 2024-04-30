@@ -2,5 +2,7 @@ _test
 0x40
 0e0
 "Stringy"
-//And a wacky comment.
+//A wacky comment.
+/* And a single-multi!*/
+/*Odd case...
 /[Unknown]/
