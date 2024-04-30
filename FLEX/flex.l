@@ -65,6 +65,11 @@ int main(int argc, char **argv){
 
         while( (token=yylex()) >= 0)
 	{
+                if(token==5)
+                {
+                fprintf(yyout, "\tLine=%d, Ignoring comment...\n", line);
+                continue;
+                }    
                 if(token==6)
                 {
                 fprintf(yyout, "\tLine=%d, UNKNOWN TOKEN, value=\"%s\"\n", line, yytext);
