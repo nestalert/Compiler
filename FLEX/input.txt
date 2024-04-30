@@ -1,4 +1,6 @@
-_id
-0x58
+_test
+0x40
 0e0
 "Stringy"
+//And a wacky comment.
+/[Unknown]/
