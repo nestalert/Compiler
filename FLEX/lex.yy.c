@@ -1902,12 +1902,17 @@ int main(int argc, char **argv){
 
         while( (token=yylex()) >= 0)
 	{
-                if(token==5)
+                if(token==TK_STR)
+                {
+                fprintf(yyout, "\tLine=%d, token=%s, value=%s\n", line, tk[token], yytext); /*We do this to avoid double quotes.*/
+                continue;
+                }   
+                if(token==TK_COM)
                 {
                 fprintf(yyout, "\tLine=%d, Ignoring comment...\n", line);
                 continue;
                 }    
-                if(token==6)
+                if(token==TK_CATCHALL)
                 {
                 fprintf(yyout, "\tLine=%d, UNKNOWN TOKEN, value=\"%s\"\n", line, yytext);
                 continue;
