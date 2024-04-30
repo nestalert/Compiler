@@ -1,1 +1,90 @@
+START=SZ
+
+SZ: 1-9 -> INT
+A-Z a-z _ -> ID
+\s -> SEP
+" -> STR
+/ -> COM
+0 -> INT_Z
+* -> BAD
+
+INT: 0-9 -> INT
+e E -> FLT_E 
+\n -> GOOD 
+. -> FLT
+* -> BAD
+
+FLT_E: \- + 0-9 -> FLT_L
+* -> BAD
+
+FLT_L: 0-9 -> FLT_L
+* -> BAD
+\n -> GOOD
+
+INT_Z: . -> FLT
+x X -> INT_X 
+\n -> GOOD
+0-7 -> INT_O 
+e E -> FLT_E
+* -> BAD
+
+INT_X: 0-9 a-f A-F -> INT_SX
+* -> BAD
+
+INT_O: 0-7 -> INT_O
+\n -> GOOD
+. -> FLT
+* -> BAD
+
+INT_SX: 0-9 a-f A-F -> INT_SX
+\n -> GOOD
+* -> BAD
+
+FLT: 0-9 -> FLT_S
+* -> BAD
+
+FLT_S: -+ ->FLT_P
+0-9 -> FLT_S
+\n -> GOOD
+e E -> FLT_E
+* -> BAD
+
+FLT_P: * -> BAD
+e E -> FLT_E
+
+ID: A-Z a-z 0-9 _ -> ID
+* -> BAD 
+\n -> GOOD
+
+SEP: \s -> SEP
+* -> GOOD 
+
+STR: * -> STR
+" -> STR_E
+\\\n -> BAD
+
+STR_E: \n -> GOOD
+* -> BAD
+
+COM: / -> COM_L
+\* -> COM_M
+* -> BAD
+
+COM_L: * -> COM_L
+\n -> GOOD
+
+COM_M: \* -> COM_C
+* -> COM_M
+
+COM_C: / -> COM_E
+* -> BAD
+
+COM_E: \n -> GOOD
+* -> BAD
+GOOD(OK):
+
+
+
+
+
 
