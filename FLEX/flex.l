@@ -11,17 +11,16 @@ int line = 1;
 
 %}
 
-DELIMITER     	[ \t]+
+DELIMITER     	[:blank:]
 INT	        0[xX][0-9a-fA-F]+|[1-9][0-9]*|0[0-7]+|0\b
 ID		[A-Za-z_][A-Za-z0-9_]{0,32}
 FLOAT		[0-9]+((\.[0-9]+)([eE][+-]?[0-9]*)?|([eE][+-]?[0-9]*)+) 
 STR		["]([^"\\\n]|\\.|\\\n)*["]
 COM_S		\/\/.*$
 COM_M           ^(\/\*).*(\*\/)$
-CATCHALL        ^[^#\r\n].*  
+CATCHALL        [^ {DELIMITER}\n]+*  
 
 %%
-
 
 {DELIMITER}     {}
 {INT}	 	{ return TK_INT; }
