@@ -1,4 +1,3 @@
-
 START = COM
 
 COM: 
@@ -6,23 +5,31 @@ COM:
     / -> COM_S
     EOF -> BAD
 COM_S: 
+    //σχόλια πολλαπλών γραμμών
     * -> COM
+    //σχόλια γραμμής
     / -> COM_L
+    //τέλος σχολίων
     \* -> COM_M
 COM_L: 
+    // περιεχόμενο σχολίων
     * ->COM_L
     \n -> GOOD
 COM_M: 
+    //η μη ολοκλήρωση του σχολίου οδηγεί στην κατάσταση BAD
     * -> COM_M
     EOF -> BAD
     \* -> COM_C
 COM_C: 
     * -> COM_M
-    / -> COM_E
+    / -> GOOD
     EOF -> BAD
-COM_E:
-    \n -> GOOD
+BAD:
+    //Έξοδος bad
     * -> BAD
-    
-GOOD(OK):
 
+GOOD:
+    //Έξοδος good
+    * -> GOOD
+    ^D -> EXIT
+EXIT:
