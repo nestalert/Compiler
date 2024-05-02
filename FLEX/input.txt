@@ -18,3 +18,5 @@ BeepBeep
 ignore	whitespace
 #unknown ?2 ? ?hello ?world
 space man
+2 <= 2
+hex || "String"

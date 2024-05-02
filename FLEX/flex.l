@@ -12,6 +12,7 @@ int line = 1;
 %}
 
 DELIMITER       [ \t]+
+ASSIGN          [a-zA-Z0-9]+{OPERATOR}[a-zA-Z0-9]+
 KEYWORD         (break|case|func|const|continue|do|double|else|float|for|if|int|long|return|short|sizeof|struct|switch|void|while)
 OPERATOR        (\+|-|\*|\/|%|=|\+=|-=|\*=|\/=|!|&&|\|\||==|!=|\+\+|--|<|>|<=|>=|&)
 INT	        0[xX][0-9a-fA-F]+|[1-9][0-9]*|0[0-7]+|0\b
@@ -25,6 +26,7 @@ CATCHALL        [^ {DELIMITER}\n]+
 %%
 
 {DELIMITER}     {}
+{ASSIGN}        { return TK_ASSIGN; }
 {KEYWORD}       { return TK_KEYWORD; }
 {OPERATOR}      { return TK_OPERATOR; }
 {INT}	 	{ return TK_INT; }
@@ -39,7 +41,7 @@ CATCHALL        [^ {DELIMITER}\n]+
 
 %%
 
-char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","COM","KEYWORD","OPERATOR","CATCHALL"};
+char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","COM","KEYWORD","OPERATOR","ASSIGN","CATCHALL"};
 
 int main(int argc, char **argv){
         int token;
