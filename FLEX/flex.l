@@ -11,18 +11,22 @@ int line = 1;
 
 %}
 
-DELIMITER     	[:blank:]
+DELIMITER       [ \t]+
+KEYWORD         (break|case|func|const|continue|do|double|else|float|for|if|int|long|return|short|sizeof|struct|switch|void|while)
+OPERATOR        (\+|-|\*|\/|%|=|\+=|-=|\*=|\/=|!|&&|\|\||==|!=|\+\+|--|<|>|<=|>=|&)
 INT	        0[xX][0-9a-fA-F]+|[1-9][0-9]*|0[0-7]+|0\b
 ID		[A-Za-z_][A-Za-z0-9_]{0,32}
 FLOAT		[0-9]+((\.[0-9]+)([eE][+-]?[0-9]*)?|([eE][+-]?[0-9]*)+) 
 STR		["]([^"\\\n]|\\.|\\\n)*["]
 COM_S		\/\/.*$
 COM_M           ^(\/\*).*(\*\/)$
-CATCHALL        [^ {DELIMITER}\n]+*  
+CATCHALL        [^ {DELIMITER}\n]+
 
 %%
 
 {DELIMITER}     {}
+{KEYWORD}       { return TK_KEYWORD; }
+{OPERATOR}      { return TK_OPERATOR; }
 {INT}	 	{ return TK_INT; }
 {ID}		{ return TK_ID; }
 {FLOAT}		{ return TK_FLOAT; }
@@ -30,12 +34,12 @@ CATCHALL        [^ {DELIMITER}\n]+*
 {COM_S}         { return TK_COM; }
 {COM_M}         { return TK_COM; }
 \n              { line++; printf("\n"); }
-{CATCHALL}      {return TK_CATCHALL; }
+{CATCHALL}      { return TK_CATCHALL; }
 <<EOF>>		{ printf("#END-OF-FILE#\n"); exit(0); }
 
 %%
 
-char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","COM", "CATCHALL"};
+char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","COM","KEYWORD","OPERATOR","CATCHALL"};
 
 int main(int argc, char **argv){
         int token;

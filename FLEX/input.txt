@@ -1,9 +1,20 @@
-_test
-Big Ass Space
-0x40
+1234
+50
+115
+3.14
+10.0
+0.0001
+3.14e-10
 0e0
-"Stringy"
-//A wacky comment.
-/* And a single-multi!*/
-/*Odd case...
-/[Unknown]/
+backitup
+BeepBeep
+
+//Comment
+/*Better Comment*/
+""
+"Test"
+"Hello world"
+"Mark said, \"Boo!\""
+ignore	whitespace
+#unknown ?2 ? ?hello ?world
+space man
