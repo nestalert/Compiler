@@ -1,6 +1,6 @@
 START=SZ
 
-SZ: 1-9 -> INT
+SZ: 1-9 -> INT_NZ
 A-Z a-z _ -> TOKEN
 \s -> SEP_R 
 \t -> SEP_R

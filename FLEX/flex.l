@@ -41,7 +41,7 @@ CATCHALL        [^ {DELIMITER}\n]+
 
 %%
 
-char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","COM","KEYWORD","OPERATOR","ASSIGN","CATCHALL"};
+char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","KEYWORD","OPERATOR","ASSIGN","CATCHALL"};
 
 int main(int argc, char **argv){
         int token;
