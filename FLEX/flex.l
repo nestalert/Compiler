@@ -33,8 +33,8 @@ CATCHALL        [^ {DELIMITER}\n]+
 {ID}		{ return TK_ID; }
 {FLOAT}		{ return TK_FLOAT; }
 {STR}		{ return TK_STR; }
-{COM_S}         { return TK_COM; }
-{COM_M}         { return TK_COM; }
+{COM_S}         {}
+{COM_M}         {}
 \n              { line++; printf("\n"); }
 {CATCHALL}      { return TK_CATCHALL; }
 <<EOF>>		{ printf("#END-OF-FILE#\n"); exit(0); }
@@ -75,11 +75,6 @@ int main(int argc, char **argv){
                 fprintf(yyout, "\tLine=%d, token=%s, value=%s\n", line, tk[token], yytext); /*We do this to avoid double quotes.*/
                 continue;
                 }   
-                if(token==TK_COM)
-                {
-                fprintf(yyout, "\tLine=%d, Ignoring comment...\n", line);
-                continue;
-                }    
                 if(token==TK_CATCHALL)
                 {
                 fprintf(yyout, "\tLine=%d, UNKNOWN TOKEN, value=\"%s\"\n", line, yytext);

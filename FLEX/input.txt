@@ -11,6 +11,7 @@ BeepBeep
 
 //Comment
 /*Better Comment*/
+break
 ""
 "Test"
 "Hello world"
