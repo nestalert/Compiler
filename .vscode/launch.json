@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/marinosfrangos/Development/Git/Compiler/FSM",
-      "program": "/Users/marinosfrangos/Development/Git/Compiler/FSM/build/Debug/outDebug"
+      "cwd": "/Users/marinosfrangos/Development/Git/Compiler/FLEX",
+      "program": "/Users/marinosfrangos/Development/Git/Compiler/FLEX/build/Debug/outDebug"
     }
   ]
 }

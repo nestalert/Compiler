@@ -1808,12 +1808,15 @@ char *yytext;
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+ /*Εισαγωγή του header file που περιέχει τα tokens*/
 #include "token.h"
+ /*Δήλωση μεταβλητής για τον αριθμό της γραμμής*/
 int line = 1;
 
-#line 1815 "simple-flex-code.c"
 #line 1816 "simple-flex-code.c"
+#line 15 "flex.l"
+ /*Δήλωση των regular expressions για τα διάφορα tokens*/
+#line 1819 "simple-flex-code.c"
 
 #define INITIAL 0
 
@@ -2033,10 +2036,10 @@ YY_DECL
 		}
 
 	{
-#line 26 "flex.l"
+#line 28 "flex.l"
 
-
-#line 2039 "simple-flex-code.c"
+ /*Κανόνες για την αναγνώριση των tokens*/
+#line 2042 "simple-flex-code.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -2096,43 +2099,43 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 28 "flex.l"
+#line 30 "flex.l"
 {}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 29 "flex.l"
+#line 31 "flex.l"
 { return TK_ASSIGN; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 30 "flex.l"
+#line 32 "flex.l"
 { return TK_KEYWORD; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 31 "flex.l"
+#line 33 "flex.l"
 { return TK_OPERATOR; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 32 "flex.l"
+#line 34 "flex.l"
 { return TK_INT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 33 "flex.l"
+#line 35 "flex.l"
 { return TK_ID; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 34 "flex.l"
+#line 36 "flex.l"
 { return TK_FLOAT; }
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 35 "flex.l"
+#line 37 "flex.l"
 { return TK_STR; }
 	YY_BREAK
 case 9:
@@ -2140,7 +2143,7 @@ case 9:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 36 "flex.l"
+#line 38 "flex.l"
 {}
 	YY_BREAK
 case 10:
@@ -2148,30 +2151,30 @@ case 10:
 (yy_c_buf_p) = yy_cp -= 1;
 YY_DO_BEFORE_ACTION; /* set up yytext again */
 YY_RULE_SETUP
-#line 37 "flex.l"
+#line 39 "flex.l"
 {}
 	YY_BREAK
 case 11:
 /* rule 11 can match eol */
 YY_RULE_SETUP
-#line 38 "flex.l"
+#line 40 "flex.l"
 { line++; printf("\n"); }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 39 "flex.l"
+#line 41 "flex.l"
 { return TK_CATCHALL; }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 40 "flex.l"
+#line 42 "flex.l"
 { printf("#END-OF-FILE#\n"); exit(0); }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 42 "flex.l"
+#line 44 "flex.l"
 ECHO;
 	YY_BREAK
-#line 2174 "simple-flex-code.c"
+#line 2177 "simple-flex-code.c"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -3177,14 +3180,14 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 42 "flex.l"
+#line 44 "flex.l"
 
-
+ /* Πίνακας με τα ονόματα των tokens*/
 char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","KEYWORD","OPERATOR","ASSIGN","CATCHALL"};
-
+ /*Είσοδος του κώδικα σε C*/
 int main(int argc, char **argv){
         int token;
-
+        /*Έλεγχος ορισμάτων εντολής*/
         if(argc == 3)
 	{
                 if(!(yyin = fopen(argv[1], "r"))) 
@@ -3206,9 +3209,10 @@ int main(int argc, char **argv){
                         return 1;
                 }
         }
-
+        /*Ανάγνωση tokens από τον lexer*/
         while( (token=yylex()) >= 0)
 	{
+                /*Εμφάνιση πληροφοριών σχετικά με τα tokens*/
                 if(token==TK_STR)
                 {
                 fprintf(yyout, "\tLine=%d, token=%s, value=%s\n", line, tk[token], yytext); /*We do this to avoid double quotes.*/

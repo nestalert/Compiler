@@ -5,12 +5,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+ /*Εισαγωγή του header file που περιέχει τα tokens*/
 #include "token.h"
+ /*Δήλωση μεταβλητής για τον αριθμό της γραμμής*/
 int line = 1;
 
 %}
-
+ /*Δήλωση των regular expressions για τα διάφορα tokens*/
 DELIMITER       [ \t]+
 ASSIGN          [a-zA-Z0-9]+{OPERATOR}[a-zA-Z0-9]+
 KEYWORD         (break|case|func|const|continue|do|double|else|float|for|if|int|long|return|short|sizeof|struct|switch|void|while)
@@ -24,7 +25,7 @@ COM_M           ^(\/\*).*(\*\/)$
 CATCHALL        [^ {DELIMITER}\n]+
 
 %%
-
+ /*Κανόνες για την αναγνώριση των tokens*/
 {DELIMITER}     {}
 {ASSIGN}        { return TK_ASSIGN; }
 {KEYWORD}       { return TK_KEYWORD; }
@@ -40,12 +41,12 @@ CATCHALL        [^ {DELIMITER}\n]+
 <<EOF>>		{ printf("#END-OF-FILE#\n"); exit(0); }
 
 %%
-
+ /* Πίνακας με τα ονόματα των tokens*/
 char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","KEYWORD","OPERATOR","ASSIGN","CATCHALL"};
-
+ /*Είσοδος του κώδικα σε C*/
 int main(int argc, char **argv){
         int token;
-
+        /*Έλεγχος ορισμάτων εντολής*/
         if(argc == 3)
 	{
                 if(!(yyin = fopen(argv[1], "r"))) 
@@ -67,9 +68,10 @@ int main(int argc, char **argv){
                         return 1;
                 }
         }
-
+        /*Ανάγνωση tokens από τον lexer*/
         while( (token=yylex()) >= 0)
 	{
+                /*Εμφάνιση πληροφοριών σχετικά με τα tokens*/
                 if(token==TK_STR)
                 {
                 fprintf(yyout, "\tLine=%d, token=%s, value=%s\n", line, tk[token], yytext); /*We do this to avoid double quotes.*/
