@@ -12,7 +12,7 @@ int line = 1;
 
 %}
  /*Δήλωση των regular expressions για τα διάφορα tokens*/
-DDELIMITER       [ \t]+
+DELIMITER       [ \t]+
 OPERATOR        (\+{1,2}|-{1,2}|\*|\/|%|=|\+=|-=|\*=|\/=|!|&&|\|\||==|!=|<|>|<=|>=|&)
 ASSIGN          (.+){OPERATOR}|{OPERATOR}(.+)|(.+){OPERATOR}(.+)
 KEYWORD         (break|case|func|const|continue|do|double|else|float|for|if|int|long|return|short|sizeof|struct|switch|void|while)
