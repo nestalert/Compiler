@@ -18,6 +18,8 @@
 063
 004
 0Xff4
+0xxaf3
+00xaf3
 
 backitup
 BeepBeep
@@ -52,7 +54,7 @@ a+5
 a+5;
 a-b
 a-5
-5-a
+5-------a
 a-5;
 a*b
 a*5
@@ -69,6 +71,7 @@ a=8;
 a="test"
 a=false
 a=6
+a===6
 a+=2
 a+=b
 a+=b;
