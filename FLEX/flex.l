@@ -21,7 +21,7 @@ FLOAT           [0-9]+((\.[0-9]+)([eE][+-]?[0-9]*)?|([eE][+-]?[0-9]*)+)
 STR             ["]([^"\\\n]|\\.|\\\n)*["]
 COM_S           \/\/.*$
 COM_M           ^(\/\*).*(\*\/)$
-ASSIGN          (.+){OPERATOR}|{OPERATOR}(.+)|(.+){OPERATOR}(.+)
+ASSIGN          (.+){OPERATOR}$|{OPERATOR}(.+)|(.+){OPERATOR}(.+)
 CATCHALL        [^ {DELIMITER}\n]+
 
 %%
