@@ -1,0 +1,131 @@
+1234
+50
+115
+3.14
+10.0
+05
+09
+5a
+
+89e5
+0.0001
+3.14e-10
+0e0
+.67
+
+0xac784
+00
+063
+004
+0Xff4
+0xxaf3
+00xaf3
+
+backitup
+BeepBeep
+_test
+test_3
+45test
+Test_t6
+space man
+ignore	whitespace
+     
+//Comment
+/Comment
+/*Better Comment*/
+/*Better Comment*
+ 
+""
+" "
+"   "
+"Test\n"
+"Hello world"
+"Mark said, \"Boo!\""
+"hello !"
+"hello !
+
+#unknown ?2 ? ?hello ?world
+  
+
+a+b
+a+5
+5+a
+a+5;
+a-b
+a-5
+a-5;
+a*b
+a*5
+5*a
+a*5;
+a/b
+a/5
+5/a
+a/5;
+a%b
+a%6
+a%4;
+a=8;
+a="test"
+a=false
+a=6
+a+=2
+a+=b
+a+=b;
+a-=9
+a-=b
+a-=b;
+a*=2
+a*=b
+a*=b;
+a/=2
+a/=b
+a/=b;
+!a
+a=!b;
+hex || "String"
+hex ||| "String"
+hex && "String"
+hex & "String"
+hex != "String"
+hex !== "String"
+a++
+b--
+a++;
+b--;
+a>8
+a>9;
+a>h
+a<8
+a<9;
+a<h
+a<=8
+a<=9;
+a<=h
+a>=8
+a>=9;
+a>=h
+&a
+a===6
+5-------a
+
+break
+case
+func
+const
+continue
+do
+double
+else
+float
+for
+if
+int
+long
+return
+short
+sizeof
+struct
+switch
+void
+while

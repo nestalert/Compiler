@@ -1,0 +1,21 @@
+//Ξεκινάει από την κατάσταση SEP
+START=SEP
+//Δέχεται το χαρακτήρα space και tab οτιδήποτε άλλο οδηγεί στην κατάσταση bad
+SEP:    \s    -> SEP_R
+        \t    -> SEP_R
+        *     -> BAD
+SEP_R:  \s    -> SEP_R
+        \t    -> SEP_R
+        *     -> SEP_R
+        \n -> GOOD
+
+BAD:
+    // Έξοδος bad
+    * -> BAD
+
+GOOD:
+    // Έξοδος good
+    * -> GOOD
+    ^D -> EXIT
+EXIT:
+
