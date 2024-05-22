@@ -1,0 +1,20 @@
+3 + 2
+15 + 25 + 35
+testvar + 1
+var1 + _var2
+
+func main()
+{
+int a;
+int b;
+scan(a);
+scan(b);
+myAdd(a,b);
+}
+
+func myAdd(int num1, int num2)
+{
+int sum;
+sum = a + b;
+print("Sum is: ", sum)
+}
