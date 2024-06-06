@@ -1,5 +1,8 @@
 all:
-	bison -o simple-bison-code.c simple-bison-code.y
-	gcc -o simple-bison-code simple-bison-code.c
+	bison -d bison.y
+	flex flex.l 
+	gcc -o project bison.tab.c lex.yy.c
+	./project
+	project.exe
 clean:
 	rm simple-bison-code.c simple-bison-code
