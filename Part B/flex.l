@@ -9,81 +9,57 @@
 #include "token.h"
  /*Δήλωση μεταβλητής για τον αριθμό της γραμμής*/
 int line = 1;
+int cw = 0;
+int iw = 0;
 
 %}
  /*Δήλωση των regular expressions για τα διάφορα tokens*/
+SEMI                 ;
+PAR_END              \)
+PAR_START            \(
+BRACE_END            \}
+BRACE_START          \{
+BRACKET_END          \]
+BRACKET_START        \[
 DELIMITER       [ \t]+
-OPERATOR        (\+{1,2}|-{1,2}|\*|\/|%|=|\+=|-=|\*=|\/=|!|&&|\|\||==|!=|<|>|<=|>=|&)
-KEYWORD         (break|case|func|const|continue|do|double|else|float|for|if|int|long|return|short|sizeof|struct|switch|void|while)
+MATH            (\+{1}|-{1}|\*|\/)
+OPERATOR        (\+{2}|-{2}|%|=|\+=|-=|\*=|\/=|!|&&|\|\||==|!=|<|>|<=|>=|&)
+KWRD            (case|func|else|sizeof|struct|case|void|do)
+KWRD_TYPE       (int|float|double|long|short|const)
+KWRD_STATE      (break|continue|return)
+KWRD_LOOP       (if|for|switch|while)
 INT             0[xX][0-9a-fA-F]+|[1-9][0-9]*|0[0-7]+|0\b
 ID              [A-Za-z_][A-Za-z0-9_]{0,32}
 FLOAT           [0-9]+((\.[0-9]+)([eE][+-]?[0-9]*)?|([eE][+-]?[0-9]*)+) 
 STR             ["]([^"\\\n]|\\.|\\\n)*["]
 COM_S           \/\/.*$
 COM_M           ^(\/\*).*(\*\/)$
-ASSIGN          (.+){OPERATOR}$|{OPERATOR}(.+)|(.+){OPERATOR}(.+)
 CATCHALL        [^ {DELIMITER}\n]+
 
 %%
  /*Κανόνες για την αναγνώριση των tokens*/
-;               {}
+{SEMI}          {cw++; return SEMI; }
 {DELIMITER}     {}
-{OPERATOR}      { return TK_OPERATOR; }
-{KEYWORD}       { return TK_KEYWORD; }
-{INT}           { return TK_INT; }
-{ID}            { return TK_ID; }
-{FLOAT}         { return TK_FLOAT; }
-{STR}           { return TK_STR; }
+{OPERATOR}      {cw++; return OPERATOR; }
+{MATH}          {cw++; return MATH; }
+{KWRD}          {cw++; return KWRD; }
+{KWRD_TYPE}     {cw++; return KWRD_TYPE; }
+{KWRD_STATE}    {cw++; return KWRD_STATE; }
+{KWRD_LOOP}     {cw++; return KWRD_LOOP; }
+{PAR_START}     {cw++; return PAR_START; } 
+{PAR_END}       {cw++; return PAR_END; }
+{BRACE_START}   {cw++; return BRACE_START; }
+{BRACE_END}     {cw++; return BRACE_END; }
+{BRACKET_START} {cw++; return BRACKET_START; }
+{BRACKET_END}   {cw++; return BRACKET_END; }
+{INT}           {cw++; return INT; }
+{ID}            {cw++; return ID; }
+{FLOAT}         {cw++; return FLOAT; }
+{STR}           {cw++; return STR; }
 {COM_S}         {}
 {COM_M}         {}
-{ASSIGN}        { return TK_ASSIGN; }
-\n              { line++; printf("\n"); }
-{CATCHALL}      { return TK_CATCHALL; }
-<<EOF>>         { printf("#END-OF-FILE#\n"); exit(0); }
+\n              {line++;}
+{CATCHALL}      {iw++; return TK_CATCHALL; }
+<<EOF>>         { printf("Number of lines:%d\nCorrect words:%d\nIncorrect words:%d\n",line,cw,iw); }
 
 %%
- /* Πίνακας με τα ονόματα των tokens*/
-char *tk[] = {"DELIMITER","INT", "ID", "FLOAT", "STR","KEYWORD","OPERATOR","ASSIGN","CATCHALL"};
- /*Είσοδος του κώδικα σε C*/
-int main(int argc, char **argv){
-        int token;
-        /*Έλεγχος ορισμάτων εντολής*/
-        if(argc == 3)
-	{
-                if(!(yyin = fopen(argv[1], "r"))) 
-		{
-                        fprintf(stderr, "Cannot read file: %s\n", argv[1]);
-                        return 1;
-                }
-                if(!(yyout = fopen(argv[2], "w"))) 
-		{
-                        fprintf(stderr, "Cannot create file: %s\n", argv[2]);
-                        return 1;
-                }
-        }
-        else if(argc == 2)
-	{
-                if(!(yyin = fopen(argv[1], "r"))) 
-		{
-                        fprintf(stderr, "Cannot read file: %s\n", argv[1]);
-                        return 1;
-                }
-        }
-        /*Ανάγνωση tokens από τον lexer*/
-        while( (token=yylex()) >= 0)
-	{
-                /*Εμφάνιση πληροφοριών σχετικά με τα tokens*/
-                if(token==TK_STR)
-                {
-                fprintf(yyout, "\tLine=%d, token=%s, value=%s\n", line, tk[token], yytext); /*We do this to avoid double quotes.*/
-                continue;
-                }   
-                if(token==TK_CATCHALL)
-                {
-                fprintf(yyout, "\tLine=%d, UNKNOWN TOKEN, value=\"%s\"\n", line, yytext);
-                continue;
-                }        
-                fprintf(yyout, "\tLine=%d, token=%s, value=\"%s\"\n", line, tk[token], yytext);
-        }
-        return 0;
-}
