@@ -11,13 +11,13 @@ extern int yylex(void);
 extern int yyparse(void);
 void yyerror(char *);
 void print_report(int,int);
-void print_valid (char *);
+void yytrue (char *);
 // Αρχικοποιούμε τον pointer για τη εισαγωγή δεδομένων με αρχείο και όχι απο το
 // stdin
 extern FILE *yyin;
 // Αρχικοποιούμε τις μεταβλητές για το άθροισμα των σωστών και λάθος εκφράσεων
-int cor_expr  = 0;
-int inc_expr  = 0;
+int ce  = 0;
+int ie  = 0;
 // Για την γραμμή που αρχίζει μία συνάρτηση
 int brack_start_line=0;
 
@@ -29,50 +29,43 @@ int function_started_flag=0;
 int line=1;
 %}
 
-%union
-{
-    int    ival;
-    char*  sval;
-    float  fval;
-    double dval;
-}
 
 // Ορισμός των λεκτικών μονάδων
 %token EOP
     UNKNOWN
-    <sval> DOT
-    <sval> SEMI
-    <sval> HASH
-    <sval> COLON
-    <sval> COMMA
-    <sval> FLOAT
-    <dval> DOUBLE
-    <fval> STRING
-    <sval> NEWLINE
-    <sval> KEYWORD
-    <ival> INTCONST
-    <sval> IDENTIFIER
-    <sval> KEYWORD_IF
-    <sval> AMPER EXCLA
-    <sval> KEYWORD_RET
-    <sval> KEYWORD_FOR
-    <sval> KEYWORD_STR
-    <sval> KEYWORD_ELSE
-    <sval> KEYWORD_SIZE
-    <sval> KEYWORD_CONT
-    <sval> KEYWORD_CASE
-    <sval> KEYWORD_INCL
-    <sval> KEYWORD_FUNC
-    <sval> KEYWORD_VOID
-    <sval> KEYWORD_SWITCH
-    <sval> KEYWORD_VAR_TYPE
-    <sval> PAR_START PAR_END
-    <sval> BRACE_START BRACE_END
-    <sval> LOGICAL_OR LOGICAL_AND
-    <sval> BRACKET_START BRACKET_END
-    <sval> GREATER LESSER GREATER_EQ LESSER_EQ
-    <sval> EQQ EQ NEQ EQ_MULTI EQ_DIV EQ_PLUS EQ_MINUS
-    <sval> PLUS PLUSPLUS MINUS MINUSMINUS DIV MOD MULTI POW
+     DOT
+     SEMI
+     HASH
+     COLON
+     COMMA
+     FLOAT
+     DOUBLE
+     STRING
+     NEWLINE
+     KEYWORD
+     INTCONST
+     IDENTIFIER
+     KEYWORD_IF
+     AMPER EXCLA
+     KEYWORD_RET
+     KEYWORD_FOR
+     KEYWORD_STR
+     KEYWORD_ELSE
+     KEYWORD_SIZE
+     KEYWORD_CONT
+     KEYWORD_CASE
+     KEYWORD_INCL
+     KEYWORD_FUNC
+     KEYWORD_VOID
+     KEYWORD_SWITCH
+     KEYWORD_VAR_TYPE
+     PAR_START PAR_END
+     BRACE_START BRACE_END
+     LOGICAL_OR LOGICAL_AND
+     BRACKET_START BRACKET_END
+     GREATER LESSER GREATER_EQ LESSER_EQ
+     EQQ EQ NEQ EQ_MULTI EQ_DIV EQ_PLUS EQ_MINUS
+     PLUS PLUSPLUS MINUS MINUSMINUS DIV MOD MULTI POW
 
 // Ορισμός προτεραιώτητας στα tokens
 %left  POW
@@ -100,7 +93,7 @@ expr_part:
     | KEYWORD
     | INTCONST
     | IDENTIFIER
-    | UNKNOWN { printf("X\tLine:  %d \t",line); }
+    | UNKNOWN { printf("(X) \tLine:  %d \t",line); }
     ;
 
 // Εδώ ορίζονται οι τελεστές
@@ -171,8 +164,8 @@ arguments:
 
 // Εδώ ορίζεται τι θεωρείται ορισμός μιας συνάρτησης
 func_par:
-      KEYWORD_FUNC IDENTIFIER PAR_START arguments PAR_END {cor_expr++; print_valid("arguments"); }
-    | KEYWORD_FUNC IDENTIFIER PAR_START expr_part PAR_END {cor_expr++; print_valid("argument"); }
+      KEYWORD_FUNC IDENTIFIER PAR_START arguments PAR_END {ce++; yytrue("arguments"); }
+    | KEYWORD_FUNC IDENTIFIER PAR_START expr_part PAR_END {ce++; yytrue("argument"); }
     ;
 
 // Εδώ ορίζεται τι θεωρείται ορισμός μιας μεταβλητής
@@ -257,59 +250,56 @@ conditionals:
 
 // Εδώ ορίζεται τι θεωρείται συντακτικά σώστο
 valid:
-     return      SEMI { cor_expr++; print_valid("return");}
-   | sizeof      SEMI { cor_expr++; print_valid("sizeof");}
-   | include     SEMI { cor_expr++; print_valid("include");}
-   | expr_proc   SEMI { cor_expr++; print_valid("expression");}
-   | assignment  SEMI { cor_expr++; print_valid("assignment");}
-   | declaration SEMI { cor_expr++; print_valid("declaration");}
-   | loops            { cor_expr++; print_valid("loop clause");}
-   | in_brace         { cor_expr++;
+     return      SEMI { ce++; yytrue("return");}
+   | sizeof      SEMI { ce++; yytrue("sizeof");}
+   | include     SEMI { ce++; yytrue("include");}
+   | expr_proc   SEMI { ce++; yytrue("expression");}
+   | assignment  SEMI { ce++; yytrue("assignment");}
+   | declaration SEMI { ce++; yytrue("declaration");}
+   | loops            { ce++; yytrue("loop clause");}
+   | in_brace         { ce++;
                         if( function_started_flag)
                         {
                             function_started_flag=0;
                             if (line == function_start_line)
                             {
-                               printf("O\tLine:  %d \tValid function body!\n",function_start_line);
+                               printf("Line:  %d \tFunction is correct.\n",function_start_line);
                             } else if (line >= function_start_line) {
-                               printf("O\tLines: %d-%d\tValid function body!\n",function_start_line, line);
+                               printf("Lines: %d-%d\tFunction is correct.\n",function_start_line, line);
                             }
                         } else {
                             function_started_flag=1;
                             function_start_line=line;
                         }
                       }
-   | struct SEMI      { cor_expr++; print_valid("struct");}
-   | func_par         { cor_expr++; print_valid("function declaration");}
-   | conditionals     { cor_expr++; print_valid("conditional clause");  }
+   | struct SEMI      { ce++; yytrue("struct");}
+   | func_par         { ce++; yytrue("function declaration");}
+   | conditionals     { ce++; yytrue("conditional clause");  }
    | NEWLINE          { line++; }
-   | EOP              { print_report(cor_expr,inc_expr); }
-   | error            { inc_expr++;}
+   | EOP              { print_report(ce,ie); }
+   | error            { ie++;}
    ;
 
 %%
 
-// Αυτή η συνάρτηση τυπώνει το output του συντακτικού αναλυτη όταν μια αποδεκτή
-// έκφραση ανιχνευθεί, με σταθερό format.
-void print_valid (char * type) {
-    printf("O\tLine:  %d \tValid %s!\n"    ,line, type);
-}
+
+
 // Αυτή η συνάρτηση τυπώνει το πλήθος των σωστών και λάθος λέξεων και εκφράσεων
 // Ενεργοποιήται μόλις ο bison δεχθεί token EOP
 // (End of Parse, δίνεται στο τέλος του αρχείου)
-void print_report (int cor_expr,int inc_expr) {
-    printf("|- Expressions:\n"
-           "| Number of  correct  expressions : %d\n"
-           "| Number of incorrect expressions : %d\n"
-           "*--------------------------------------*\n"
-           ,cor_expr, inc_expr);
+void print_report (int ce,int ie) {
+    printf("\n===================\n"
+        "\nThe program counted (%d) expressions,\nOf which (%d) were correct,\nAnd (%d) were incorrect.",ce+ie,ce,ie);
 }
 
-/* H synarthsh yyerror xrhsimopoieitai gia thn anafora sfalmatwn. Sygkekrimena kaleitai
-   apo thn yyparse otan yparksei kapoio syntaktiko lathos. Sthn parakatw periptwsh h
-   synarthsh epi ths ousias typwnei mhnyma lathous sthn othonh. */
-void yyerror(char *s) {
-    fprintf(stderr, "X\tLine:  %d \tError: %s\n",line, s);
+void yytrue (char * type) 
+{
+    printf("Line:%d \tCorrect %s\n"    ,line, type);
+}
+
+void yyerror(char *s) 
+{
+    fprintf(stderr, "(X)\tOn Line:%d \tError: %s\n",line, s);
 }
 
 //Αναγκαίες εντολές για να γίνεται το debugging στον Bison
@@ -332,6 +322,6 @@ int main(int argc, char* argv[])
          fp = fopen(argv[1],"r");
     yyin = fp;
     // Set Flex to read from it instead of defaulting to STDIN:
-    printf("\n*---- ANALYSIS: ---------------------*\n");
+    printf("\nBeginning analysis:\n");
     yyparse();
 }

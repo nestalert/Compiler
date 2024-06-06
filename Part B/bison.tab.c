@@ -76,13 +76,13 @@ extern int yylex(void);
 extern int yyparse(void);
 void yyerror(char *);
 void print_report(int,int);
-void print_valid (char *);
+void yytrue (char *);
 // Αρχικοποιούμε τον pointer για τη εισαγωγή δεδομένων με αρχείο και όχι απο το
 // stdin
 extern FILE *yyin;
 // Αρχικοποιούμε τις μεταβλητές για το άθροισμα των σωστών και λάθος εκφράσεων
-int cor_expr  = 0;
-int inc_expr  = 0;
+int ce  = 0;
+int ie  = 0;
 // Για την γραμμή που αρχίζει μία συνάρτηση
 int brack_start_line=0;
 
@@ -191,20 +191,7 @@ extern int yydebug;
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-{
-/* Line 387 of yacc.c  */
-#line 33 "bison.y"
-
-    int    ival;
-    char*  sval;
-    float  fval;
-    double dval;
-
-
-/* Line 387 of yacc.c  */
-#line 207 "bison.tab.c"
-} YYSTYPE;
+typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -231,7 +218,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 235 "bison.tab.c"
+#line 222 "bison.tab.c"
 
 #ifdef short
 # undef short
@@ -564,16 +551,16 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    89,    89,    90,    97,    98,    99,   100,   101,   102,
-     103,   108,   109,   110,   111,   112,   113,   114,   115,   116,
-     117,   118,   119,   122,   123,   124,   129,   130,   131,   132,
-     138,   139,   140,   144,   145,   150,   154,   157,   158,   162,
-     166,   167,   168,   169,   174,   175,   180,   181,   182,   183,
-     184,   185,   190,   194,   195,   200,   201,   205,   206,   209,
-     210,   214,   217,   218,   222,   223,   227,   228,   229,   230,
-     231,   232,   233,   239,   240,   241,   242,   247,   248,   253,
-     254,   255,   260,   261,   262,   263,   264,   265,   266,   267,
-     282,   283,   284,   285,   286,   287
+       0,    82,    82,    83,    90,    91,    92,    93,    94,    95,
+      96,   101,   102,   103,   104,   105,   106,   107,   108,   109,
+     110,   111,   112,   115,   116,   117,   122,   123,   124,   125,
+     131,   132,   133,   137,   138,   143,   147,   150,   151,   155,
+     159,   160,   161,   162,   167,   168,   173,   174,   175,   176,
+     177,   178,   183,   187,   188,   193,   194,   198,   199,   202,
+     203,   207,   210,   211,   215,   216,   220,   221,   222,   223,
+     224,   225,   226,   232,   233,   234,   235,   240,   241,   246,
+     247,   248,   253,   254,   255,   256,   257,   258,   259,   260,
+     275,   276,   277,   278,   279,   280
 };
 #endif
 
@@ -1641,76 +1628,76 @@ yyreduce:
     {
         case 10:
 /* Line 1792 of yacc.c  */
-#line 103 "bison.y"
-    { printf("X\tLine:  %d \t",line); }
+#line 96 "bison.y"
+    { printf("(X) \tLine:  %d \t",line); }
     break;
 
   case 44:
 /* Line 1792 of yacc.c  */
-#line 174 "bison.y"
-    {cor_expr++; print_valid("arguments"); }
+#line 167 "bison.y"
+    {ce++; yytrue("arguments"); }
     break;
 
   case 45:
 /* Line 1792 of yacc.c  */
-#line 175 "bison.y"
-    {cor_expr++; print_valid("argument"); }
+#line 168 "bison.y"
+    {ce++; yytrue("argument"); }
     break;
 
   case 82:
 /* Line 1792 of yacc.c  */
-#line 260 "bison.y"
-    { cor_expr++; print_valid("return");}
+#line 253 "bison.y"
+    { ce++; yytrue("return");}
     break;
 
   case 83:
 /* Line 1792 of yacc.c  */
-#line 261 "bison.y"
-    { cor_expr++; print_valid("sizeof");}
+#line 254 "bison.y"
+    { ce++; yytrue("sizeof");}
     break;
 
   case 84:
 /* Line 1792 of yacc.c  */
-#line 262 "bison.y"
-    { cor_expr++; print_valid("include");}
+#line 255 "bison.y"
+    { ce++; yytrue("include");}
     break;
 
   case 85:
 /* Line 1792 of yacc.c  */
-#line 263 "bison.y"
-    { cor_expr++; print_valid("expression");}
+#line 256 "bison.y"
+    { ce++; yytrue("expression");}
     break;
 
   case 86:
 /* Line 1792 of yacc.c  */
-#line 264 "bison.y"
-    { cor_expr++; print_valid("assignment");}
+#line 257 "bison.y"
+    { ce++; yytrue("assignment");}
     break;
 
   case 87:
 /* Line 1792 of yacc.c  */
-#line 265 "bison.y"
-    { cor_expr++; print_valid("declaration");}
+#line 258 "bison.y"
+    { ce++; yytrue("declaration");}
     break;
 
   case 88:
 /* Line 1792 of yacc.c  */
-#line 266 "bison.y"
-    { cor_expr++; print_valid("loop clause");}
+#line 259 "bison.y"
+    { ce++; yytrue("loop clause");}
     break;
 
   case 89:
 /* Line 1792 of yacc.c  */
-#line 267 "bison.y"
-    { cor_expr++;
+#line 260 "bison.y"
+    { ce++;
                         if( function_started_flag)
                         {
                             function_started_flag=0;
                             if (line == function_start_line)
                             {
-                               printf("O\tLine:  %d \tValid function body!\n",function_start_line);
+                               printf("Line:  %d \tFunction is correct.\n",function_start_line);
                             } else if (line >= function_start_line) {
-                               printf("O\tLines: %d-%d\tValid function body!\n",function_start_line, line);
+                               printf("Lines: %d-%d\tFunction is correct.\n",function_start_line, line);
                             }
                         } else {
                             function_started_flag=1;
@@ -1721,43 +1708,43 @@ yyreduce:
 
   case 90:
 /* Line 1792 of yacc.c  */
-#line 282 "bison.y"
-    { cor_expr++; print_valid("struct");}
+#line 275 "bison.y"
+    { ce++; yytrue("struct");}
     break;
 
   case 91:
 /* Line 1792 of yacc.c  */
-#line 283 "bison.y"
-    { cor_expr++; print_valid("function declaration");}
+#line 276 "bison.y"
+    { ce++; yytrue("function declaration");}
     break;
 
   case 92:
 /* Line 1792 of yacc.c  */
-#line 284 "bison.y"
-    { cor_expr++; print_valid("conditional clause");  }
+#line 277 "bison.y"
+    { ce++; yytrue("conditional clause");  }
     break;
 
   case 93:
 /* Line 1792 of yacc.c  */
-#line 285 "bison.y"
+#line 278 "bison.y"
     { line++; }
     break;
 
   case 94:
 /* Line 1792 of yacc.c  */
-#line 286 "bison.y"
-    { print_report(cor_expr,inc_expr); }
+#line 279 "bison.y"
+    { print_report(ce,ie); }
     break;
 
   case 95:
 /* Line 1792 of yacc.c  */
-#line 287 "bison.y"
-    { inc_expr++;}
+#line 280 "bison.y"
+    { ie++;}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1761 "bison.tab.c"
+#line 1748 "bison.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1989,30 +1976,27 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 290 "bison.y"
+#line 283 "bison.y"
 
 
-// Αυτή η συνάρτηση τυπώνει το output του συντακτικού αναλυτη όταν μια αποδεκτή
-// έκφραση ανιχνευθεί, με σταθερό format.
-void print_valid (char * type) {
-    printf("O\tLine:  %d \tValid %s!\n"    ,line, type);
-}
+
+
 // Αυτή η συνάρτηση τυπώνει το πλήθος των σωστών και λάθος λέξεων και εκφράσεων
 // Ενεργοποιήται μόλις ο bison δεχθεί token EOP
 // (End of Parse, δίνεται στο τέλος του αρχείου)
-void print_report (int cor_expr,int inc_expr) {
-    printf("|- Expressions:\n"
-           "| Number of  correct  expressions : %d\n"
-           "| Number of incorrect expressions : %d\n"
-           "*--------------------------------------*\n"
-           ,cor_expr, inc_expr);
+void print_report (int ce,int ie) {
+    printf("\n===================\n"
+        "\nThe program counted (%d) expressions,\nOf which (%d) were correct,\nAnd (%d) were incorrect.",ce+ie,ce,ie);
 }
 
-/* H synarthsh yyerror xrhsimopoieitai gia thn anafora sfalmatwn. Sygkekrimena kaleitai
-   apo thn yyparse otan yparksei kapoio syntaktiko lathos. Sthn parakatw periptwsh h
-   synarthsh epi ths ousias typwnei mhnyma lathous sthn othonh. */
-void yyerror(char *s) {
-    fprintf(stderr, "X\tLine:  %d \tError: %s\n",line, s);
+void yytrue (char * type) 
+{
+    printf("Line:%d \tCorrect %s\n"    ,line, type);
+}
+
+void yyerror(char *s) 
+{
+    fprintf(stderr, "(X)\tOn Line:%d \tError: %s\n",line, s);
 }
 
 //Αναγκαίες εντολές για να γίνεται το debugging στον Bison
@@ -2035,6 +2019,6 @@ int main(int argc, char* argv[])
          fp = fopen(argv[1],"r");
     yyin = fp;
     // Set Flex to read from it instead of defaulting to STDIN:
-    printf("\n*---- ANALYSIS: ---------------------*\n");
+    printf("\nBeginning analysis:\n");
     yyparse();
 }

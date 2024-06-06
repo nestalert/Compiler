@@ -107,20 +107,7 @@ extern int yydebug;
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef union YYSTYPE
-{
-/* Line 2058 of yacc.c  */
-#line 33 "bison.y"
-
-    int    ival;
-    char*  sval;
-    float  fval;
-    double dval;
-
-
-/* Line 2058 of yacc.c  */
-#line 123 "bison.tab.h"
-} YYSTYPE;
+typedef int YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
