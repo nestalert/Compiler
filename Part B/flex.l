@@ -107,6 +107,8 @@ WHITESPACE           [ \t]
       else if ( !strcmp(yytext,"float"   ) ) {cw++; return KEYWORD_VAR_TYPE;}
       else if ( !strcmp(yytext,"const"   ) ) {cw++; return KEYWORD_VAR_TYPE;}
       else if ( !strcmp(yytext,"double"  ) ) {cw++; return KEYWORD_VAR_TYPE;}
+      else if ( !strcmp(yytext,"scan"  ) ) {cw++; return KEYWORD_SCAN;}
+      else if ( !strcmp(yytext,"len"  ) ) {cw++; return KEYWORD_LEN;}
       else                                   {cw++; return IDENTIFIER;}
 }
 {TYPE_EXCLA}    { if (!strcmp(yytext, "!=")) {cw++; return NEQ;        } else    { return EXCLA;  }}

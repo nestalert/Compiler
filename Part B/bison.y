@@ -57,6 +57,8 @@ int line=1;
      KEYWORD_VOID
      KEYWORD_SWITCH
      KEYWORD_VAR_TYPE
+     KEYWORD_SCAN
+     KEYWORD_LEN
      PAR_START PAR_END
      BRACE_START BRACE_END
      LOGICAL_OR LOGICAL_AND
@@ -183,7 +185,8 @@ assignment:
 // Ο κανόνας για τις επιστροφές
 return:
     KEYWORD_RET expr_proc
-    | KEYWORD_RET expr_part
+    |
+    |
     ;
 
 // Ο κανόνας για τα includes
@@ -191,7 +194,14 @@ include:
     HASH KEYWORD_INCL LESSER IDENTIFIER DOT IDENTIFIER GREATER
     | HASH KEYWORD_INCL STR
     ;
-
+scan:
+    KEYWORD_SCAN PAR_START expr_part PAR_END SEMI
+    |
+    ;
+len:
+    KEYWORD_LEN PAR_START PAR_END SEMI
+    | KEYWORD_LEN PAR_START expr_part PAR_END SEMI 
+    ;
 cases:
     KEYWORD_CASE COLON valid NEWLINE cases
     | KEYWORD_CASE COLON valid NEWLINE
@@ -273,6 +283,8 @@ valid:
    | struct SEMI      { ce++; yytrue("struct");}
    | func_par         { ce++; yytrue("function declaration");}
    | conditionals     { ce++; yytrue("conditional clause");  }
+   | scan             { ce++; yytrue("scan");  }
+   | len              { ce++; yytrue("len");  }
    | NEWLINE          { line++; }
    | EOP              { exp_report(ce,ie); }
    | error            { ie++;}

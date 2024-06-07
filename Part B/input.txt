@@ -10,11 +10,18 @@ int b;
 scan(a);
 scan(b);
 myAdd(a,b);
+while(a<b)
+{
+	a++;
+	printf(a);
+};
+return;
 }
 
 func myAdd(int num1, int num2)
 {
 int sum;
 sum = a + b;
+len("SuperString");
 print("Sum is: ", sum)
 }
