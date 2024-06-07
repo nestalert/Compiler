@@ -110,6 +110,7 @@ WHITESPACE           [ \t]
       else if ( !strcmp(yytext,"scan"  ) ) {cw++; return KEYWORD_SCAN;}
       else if ( !strcmp(yytext,"len"  ) ) {cw++; return KEYWORD_LEN;}
       else if ( !strcmp(yytext,"cmp"  ) ) {cw++; return KEYWORD_CMP;}
+      else if ( !strcmp(yytext,"print"  ) ) {cw++; return KEYWORD_PRINT;}
       else                                   {cw++; return IDENTIFIER;}
 }
 {TYPE_EXCLA}    { if (!strcmp(yytext, "!=")) {cw++; return NEQ;        } else    { return EXCLA;  }}

@@ -60,6 +60,7 @@ int line=1;
      KEYWORD_SCAN
      KEYWORD_LEN
      KEYWORD_CMP
+     KEYWORD_PRINT 
      PAR_START PAR_END
      BRACE_START BRACE_END
      LOGICAL_OR LOGICAL_AND
@@ -249,7 +250,10 @@ for_args:
     | SEMI SEMI expr_proc
     | SEMI SEMI
     ;
-
+print:
+    KEYWORD_PRINT PAR_START STR COMMA IDENTIFIER PAR_END SEMI
+    |KEYWORD_PRINT PAR_START expr_part PAR_END SEMI
+    ; 
 // Ο κανόνας αυτός χρησιμοποιήται μαζί με το sizeof (πχ. sizeof(smth) * 10)
 // Με το "* 10" να είναι το "half_expr"
 half_expr:
@@ -303,6 +307,7 @@ valid:
    | len              { ce++; yytrue("len");  }
    | cmp              { ce++; yytrue("cmp");  }
    | arr              { ce++; yytrue("array"); }
+   | print            { ce++; yytrue("print statement"); } 
    | NEWLINE          { line++; }
    | EOP              { exp_report(ce,ie); }
    | error            { ie++;}
