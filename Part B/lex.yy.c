@@ -903,7 +903,7 @@ YY_RULE_SETUP
 case YY_STATE_EOF(INITIAL):
 #line 155 "flex.l"
 { BEGIN(REALLYEND);
-                    printf("Syntax Report:\nThe program counted (%d) words,\nOf which (%d) were correct,\n And (%d) were incorrect.\n",cw+iw,cw, iw);
+                    printf("Syntax Report:\nThe program counted (%d) words,\nOf which (%d) were correct,\nAnd (%d) were incorrect.\n",cw+iw,cw, iw);
                     return EOP; }
 	YY_BREAK
 /*Εδώ, μετά την πάροδο των προηγούμενων, "πραγματικά" τερματίζουμε την
