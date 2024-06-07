@@ -25,6 +25,12 @@ char panic_cause_char[100];
    Meta apo auto, mporei na ginei xrhsh twn onomatwn (aristera) anti twn,
    synhthws idiaiterws makroskelwn kai dysnohtwn, kanonikwn ekfrasewn */
 
+PAR_END              \)
+PAR_START            \(
+BRACE_END            \}
+BRACE_START          \{
+BRACKET_END          \]
+BRACKET_START        \[
 SEMI                 ;
 HASH                 #
 TILDE                ~
@@ -35,12 +41,6 @@ DOT                  \.
 COMMA                \,
 COLON                \:
 AMPER                \&
-PAR_END              \)
-PAR_START            \(
-BRACE_END            \}
-BRACE_START          \{
-BRACKET_END          \]
-BRACKET_START        \[
 LOGICAL_OR           \|\|
 TYPE_EQ              ==?
 TYPE_DIV             \/=?
@@ -49,14 +49,14 @@ TYPE_EXCLA           \!=?
 TYPE_AMPER           \&\&
 TYPE_LESSER          \<=?
 TYPE_GREATER         \>=?
-WHITESPACE           [ \t]
 TYPE_PLUS            \+[\+=]?
 TYPE_MINUS           \-[\-=]?
-STRING               '.*'|\".*\"
-INTCONST             0|[1-9]+[0-9]*
+STR               ["]([^"\\\n]|\\.|\\\n)*["]
+INT             0[xX][0-9a-fA-F]+|[1-9][0-9]*|0[0-7]+|0\b
 COMMENT              \/\*(.|\n)*?\*\/|\/\/.*
-IDENTIFIER           [a-zA-Z_]([0-9_a-zA-Z]*)
-FLOAT                [0-9]+\.[0-9]+|[0-9]+\.[0-9]+e[0-9]+
+IDENTIFIER           [A-Za-z_][A-Za-z0-9_]{0,32}
+FLOAT                [[0-9]+((\.[0-9]+)([eE][+-]?[0-9]*)?|([eE][+-]?[0-9]*)+)
+WHITESPACE           [ \t]
 
 %x REALLYEND
 %x PREPANIC
@@ -66,26 +66,7 @@ FLOAT                [0-9]+\.[0-9]+|[0-9]+\.[0-9]+e[0-9]+
    kwdikas mesa sta agkistra. H entolh return epitrepei thn epistrofh
    mias arithmhtikhs timhs mesw ths synarthshs yylex() */
 
-/* Σχόλιο Ομάδας 15
-    Σημείωσεις για:
-    -{IDENTIFIER} : Ο λεκτικός μας αναλυτής, πρώτα ανιχνεύει την συμβολοσειρά
-                    ως identifier, και μετά ξεκαθαρίζει άμα είναι keyword ή
-                    απλά το όνομα μιας μεταβλητής ή συνάρτησης.
-    -{.} :          Ο λεκτικός μας αναλυτής, εφόσον ανιχνεύσει τα στοιχεία τα
-                    οποία είναι άγνωστα, τα αναφέρει, και παρακάτω αναμένουμε
-                    τον συντακτικό αναλυτή να αναφέρει ολοκληρωμένες 
-                    συμβολοσειρές που είναι λανθασμένες λόγω άγνωστου χαρακτήρα.
-    -Σημεία Στίξης: Ο λεκτικός μας αναλυτής, ανιχνεύει επίσης και τα στοιχεία
-                    στίξης, αυτά που είναι σημαντικότερα (παρενθέσεις, αγκύλες
-                    κτλ.) τα επιτρέφει ως συγκεκριμένα token για ευκολία του
-                    συντακτικού αναλυτή.  Τα υπόλοιπα τα αναφέρει απλά σαν
-                    σημεία στίξης γιατί η κατανόηση της ορθότητας τους είναι
-                    δουλειά που αναλαμβάνει ο συντακτικός αναλυτής, καθώς
-                    απαιτεί συντακτική ανάλυση (επεξεργασία προηγούμενων και
-                    επόμενων λέξεων, κτλ.)
-    -Κενά:          Ο λεκτικός μας αναλυτής αγνοεί τα κενά και τις κενές
-                    γραμμές, δεν επιτρέφει token για αυτά για το συντακτικό
-                    αναλυτή. */
+
 %%
 {MOD}           {cw++; return MOD;                     }
 {POW}           {cw++; return POW;                     }
@@ -101,8 +82,8 @@ FLOAT                [0-9]+\.[0-9]+|[0-9]+\.[0-9]+e[0-9]+
 {BRACKET_END}   {cw++; return BRACKET_END;             }
 {BRACKET_START} {cw++; return BRACKET_START;           }
 {FLOAT}         {cw++; return FLOAT;   }
-{STRING}        {cw++; return STRING;  }
-{INTCONST}      {cw++; return INTCONST;}
+{STR}        {cw++; return STR;  }
+{INT}      {cw++; return INT;}
 {IDENTIFIER}    {
       if      ( !strcmp(yytext,"do"      ) ) {cw++; return KEYWORD;}
       else if ( !strcmp(yytext,"while"   ) ) {cw++; return KEYWORD;}
@@ -150,13 +131,13 @@ FLOAT                [0-9]+\.[0-9]+|[0-9]+\.[0-9]+e[0-9]+
  /*Εδώ καλούμε ένα τμήμα κώδικα που μας βοηθά να δώσουμε ένα token στον bison
   για να δηλώσουμε το τέλος του αρχείου, αποτρέποντας όμως τον bison να
   τερματίζει άμεσα την εκτέλεση. Έτσι, καταφέρνουμε να εκτελούμε την συνάρτηση
-  print_report() στο bison-SA.y, για να ανεφέρουμε τον αριθμό των σωστών και
+  exp_report() στο bison-SA.y, για να ανεφέρουμε τον αριθμό των σωστών και
   λανθασμένων λέξεων και εκφράσεων.*/
 <INITIAL><<EOF>>  { BEGIN(REALLYEND);
                     printf("Syntax Report:\nThe program counted (%d) words,\nOf which (%d) were correct,\nAnd (%d) were incorrect.\n",cw+iw,cw, iw);
                     return EOP; }
  /*Εδώ, μετά την πάροδο των προηγούμενων, "πραγματικά" τερματίζουμε την
-  εκτέλεση του flex, έχουμε ήδη τυπώσει την αναφορά με την print_report() με το
+  εκτέλεση του flex, έχουμε ήδη τυπώσει την αναφορά με την exp_report() με το
   bison, και αρχίζουμε να τερματίζουμε το πρόγραμμα συνολικά.*/
 <REALLYEND><<EOF>> {yyterminate();}
 %%

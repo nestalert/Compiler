@@ -72,21 +72,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 extern int yylex(void);
 extern int yyparse(void);
-void yyerror(char *);
-void print_report(int,int);
-void yytrue (char *);
-// Αρχικοποιούμε τον pointer για τη εισαγωγή δεδομένων με αρχείο και όχι απο το
-// stdin
+
 extern FILE *yyin;
-// Αρχικοποιούμε τις μεταβλητές για το άθροισμα των σωστών και λάθος εκφράσεων
+
+void yyerror(char *);
+void exp_report(int,int);
+void yytrue (char *);
+
 int ce  = 0;
 int ie  = 0;
-// Για την γραμμή που αρχίζει μία συνάρτηση
-int brack_start_line=0;
 
-// Για να αναφέρουμε απο που ως που μια συνάρτηση αρχίζει.
 int function_start_line=0;
 int function_started_flag=0;
 
@@ -94,7 +92,7 @@ int function_started_flag=0;
 int line=1;
 
 /* Line 371 of yacc.c  */
-#line 98 "bison.tab.c"
+#line 96 "bison.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -139,10 +137,10 @@ extern int yydebug;
      COMMA = 264,
      FLOAT = 265,
      DOUBLE = 266,
-     STRING = 267,
+     STR = 267,
      NEWLINE = 268,
      KEYWORD = 269,
-     INTCONST = 270,
+     INT = 270,
      IDENTIFIER = 271,
      KEYWORD_IF = 272,
      AMPER = 273,
@@ -218,7 +216,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 222 "bison.tab.c"
+#line 220 "bison.tab.c"
 
 #ifdef short
 # undef short
@@ -551,16 +549,16 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    82,    82,    83,    90,    91,    92,    93,    94,    95,
-      96,   101,   102,   103,   104,   105,   106,   107,   108,   109,
-     110,   111,   112,   115,   116,   117,   122,   123,   124,   125,
-     131,   132,   133,   137,   138,   143,   147,   150,   151,   155,
-     159,   160,   161,   162,   167,   168,   173,   174,   175,   176,
-     177,   178,   183,   187,   188,   193,   194,   198,   199,   202,
-     203,   207,   210,   211,   215,   216,   220,   221,   222,   223,
-     224,   225,   226,   232,   233,   234,   235,   240,   241,   246,
-     247,   248,   253,   254,   255,   256,   257,   258,   259,   260,
-     275,   276,   277,   278,   279,   280
+       0,    80,    80,    81,    88,    89,    90,    91,    92,    93,
+      94,    99,   100,   101,   102,   103,   104,   105,   106,   107,
+     108,   109,   110,   113,   114,   115,   120,   121,   122,   123,
+     129,   130,   131,   135,   136,   141,   145,   148,   149,   153,
+     157,   158,   159,   160,   165,   166,   171,   172,   173,   174,
+     175,   176,   181,   185,   186,   191,   192,   196,   197,   200,
+     201,   205,   208,   209,   213,   214,   218,   219,   220,   221,
+     222,   223,   224,   230,   231,   232,   233,   238,   239,   244,
+     245,   246,   251,   252,   253,   254,   255,   256,   257,   258,
+     273,   274,   275,   276,   277,   278
 };
 #endif
 
@@ -570,8 +568,8 @@ static const yytype_uint16 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "EOP", "UNKNOWN", "DOT", "SEMI", "HASH",
-  "COLON", "COMMA", "FLOAT", "DOUBLE", "STRING", "NEWLINE", "KEYWORD",
-  "INTCONST", "IDENTIFIER", "KEYWORD_IF", "AMPER", "EXCLA", "KEYWORD_RET",
+  "COLON", "COMMA", "FLOAT", "DOUBLE", "STR", "NEWLINE", "KEYWORD", "INT",
+  "IDENTIFIER", "KEYWORD_IF", "AMPER", "EXCLA", "KEYWORD_RET",
   "KEYWORD_FOR", "KEYWORD_STR", "KEYWORD_ELSE", "KEYWORD_SIZE",
   "KEYWORD_CONT", "KEYWORD_CASE", "KEYWORD_INCL", "KEYWORD_FUNC",
   "KEYWORD_VOID", "KEYWORD_SWITCH", "KEYWORD_VAR_TYPE", "PAR_START",
@@ -1628,67 +1626,67 @@ yyreduce:
     {
         case 10:
 /* Line 1792 of yacc.c  */
-#line 96 "bison.y"
+#line 94 "bison.y"
     { printf("(X) \tLine:  %d \t",line); }
     break;
 
   case 44:
 /* Line 1792 of yacc.c  */
-#line 167 "bison.y"
+#line 165 "bison.y"
     {ce++; yytrue("arguments"); }
     break;
 
   case 45:
 /* Line 1792 of yacc.c  */
-#line 168 "bison.y"
+#line 166 "bison.y"
     {ce++; yytrue("argument"); }
     break;
 
   case 82:
 /* Line 1792 of yacc.c  */
-#line 253 "bison.y"
+#line 251 "bison.y"
     { ce++; yytrue("return");}
     break;
 
   case 83:
 /* Line 1792 of yacc.c  */
-#line 254 "bison.y"
+#line 252 "bison.y"
     { ce++; yytrue("sizeof");}
     break;
 
   case 84:
 /* Line 1792 of yacc.c  */
-#line 255 "bison.y"
+#line 253 "bison.y"
     { ce++; yytrue("include");}
     break;
 
   case 85:
 /* Line 1792 of yacc.c  */
-#line 256 "bison.y"
+#line 254 "bison.y"
     { ce++; yytrue("expression");}
     break;
 
   case 86:
 /* Line 1792 of yacc.c  */
-#line 257 "bison.y"
+#line 255 "bison.y"
     { ce++; yytrue("assignment");}
     break;
 
   case 87:
 /* Line 1792 of yacc.c  */
-#line 258 "bison.y"
+#line 256 "bison.y"
     { ce++; yytrue("declaration");}
     break;
 
   case 88:
 /* Line 1792 of yacc.c  */
-#line 259 "bison.y"
+#line 257 "bison.y"
     { ce++; yytrue("loop clause");}
     break;
 
   case 89:
 /* Line 1792 of yacc.c  */
-#line 260 "bison.y"
+#line 258 "bison.y"
     { ce++;
                         if( function_started_flag)
                         {
@@ -1708,43 +1706,43 @@ yyreduce:
 
   case 90:
 /* Line 1792 of yacc.c  */
-#line 275 "bison.y"
+#line 273 "bison.y"
     { ce++; yytrue("struct");}
     break;
 
   case 91:
 /* Line 1792 of yacc.c  */
-#line 276 "bison.y"
+#line 274 "bison.y"
     { ce++; yytrue("function declaration");}
     break;
 
   case 92:
 /* Line 1792 of yacc.c  */
-#line 277 "bison.y"
+#line 275 "bison.y"
     { ce++; yytrue("conditional clause");  }
     break;
 
   case 93:
 /* Line 1792 of yacc.c  */
-#line 278 "bison.y"
+#line 276 "bison.y"
     { line++; }
     break;
 
   case 94:
 /* Line 1792 of yacc.c  */
-#line 279 "bison.y"
-    { print_report(ce,ie); }
+#line 277 "bison.y"
+    { exp_report(ce,ie); }
     break;
 
   case 95:
 /* Line 1792 of yacc.c  */
-#line 280 "bison.y"
+#line 278 "bison.y"
     { ie++;}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1748 "bison.tab.c"
+#line 1746 "bison.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1976,7 +1974,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 283 "bison.y"
+#line 281 "bison.y"
 
 
 
@@ -1984,9 +1982,9 @@ yyreturn:
 // Αυτή η συνάρτηση τυπώνει το πλήθος των σωστών και λάθος λέξεων και εκφράσεων
 // Ενεργοποιήται μόλις ο bison δεχθεί token EOP
 // (End of Parse, δίνεται στο τέλος του αρχείου)
-void print_report (int ce,int ie) {
+void exp_report (int ce,int ie) {
     printf("\n===================\n"
-        "\nThe program counted (%d) expressions,\nOf which (%d) were correct,\nAnd (%d) were incorrect.",ce+ie,ce,ie);
+        "\nThe program counted (%d) expressions,\nOf which (%d) were correct,\nAnd (%d) were incorrect.\n",ce+ie,ce,ie);
 }
 
 void yytrue (char * type) 
@@ -2001,7 +1999,7 @@ void yyerror(char *s)
 
 //Αναγκαίες εντολές για να γίνεται το debugging στον Bison
 #ifdef YYDEBUG
-  yydebug = 1;
+  int yydebug = 1;
 #endif
 
 /* H synarthsh main pou apotelei kai to shmeio ekkinhshs tou programmatos.

@@ -7,21 +7,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 extern int yylex(void);
 extern int yyparse(void);
-void yyerror(char *);
-void print_report(int,int);
-void yytrue (char *);
-// Αρχικοποιούμε τον pointer για τη εισαγωγή δεδομένων με αρχείο και όχι απο το
-// stdin
+
 extern FILE *yyin;
-// Αρχικοποιούμε τις μεταβλητές για το άθροισμα των σωστών και λάθος εκφράσεων
+
+void yyerror(char *);
+void exp_report(int,int);
+void yytrue (char *);
+
 int ce  = 0;
 int ie  = 0;
-// Για την γραμμή που αρχίζει μία συνάρτηση
-int brack_start_line=0;
 
-// Για να αναφέρουμε απο που ως που μια συνάρτηση αρχίζει.
 int function_start_line=0;
 int function_started_flag=0;
 
@@ -40,10 +38,10 @@ int line=1;
      COMMA
      FLOAT
      DOUBLE
-     STRING
+     STR
      NEWLINE
      KEYWORD
-     INTCONST
+     INT
      IDENTIFIER
      KEYWORD_IF
      AMPER EXCLA
@@ -88,10 +86,10 @@ program:
    Ένας χαρακτήρας ή ένας αριθμός */
 expr_part:
       FLOAT
-    | STRING
+    | STR
     | DOUBLE
     | KEYWORD
-    | INTCONST
+    | INT
     | IDENTIFIER
     | UNKNOWN { printf("(X) \tLine:  %d \t",line); }
     ;
@@ -191,7 +189,7 @@ return:
 // Ο κανόνας για τα includes
 include:
     HASH KEYWORD_INCL LESSER IDENTIFIER DOT IDENTIFIER GREATER
-    | HASH KEYWORD_INCL STRING
+    | HASH KEYWORD_INCL STR
     ;
 
 cases:
@@ -230,7 +228,7 @@ for_args:
 // Με το "* 10" να είναι το "half_expr"
 half_expr:
       operator IDENTIFIER
-    | operator INTCONST
+    | operator INT
     | operator DOUBLE
     | operator FLOAT
     ;
@@ -276,7 +274,7 @@ valid:
    | func_par         { ce++; yytrue("function declaration");}
    | conditionals     { ce++; yytrue("conditional clause");  }
    | NEWLINE          { line++; }
-   | EOP              { print_report(ce,ie); }
+   | EOP              { exp_report(ce,ie); }
    | error            { ie++;}
    ;
 
@@ -287,9 +285,9 @@ valid:
 // Αυτή η συνάρτηση τυπώνει το πλήθος των σωστών και λάθος λέξεων και εκφράσεων
 // Ενεργοποιήται μόλις ο bison δεχθεί token EOP
 // (End of Parse, δίνεται στο τέλος του αρχείου)
-void print_report (int ce,int ie) {
+void exp_report (int ce,int ie) {
     printf("\n===================\n"
-        "\nThe program counted (%d) expressions,\nOf which (%d) were correct,\nAnd (%d) were incorrect.",ce+ie,ce,ie);
+        "\nThe program counted (%d) expressions,\nOf which (%d) were correct,\nAnd (%d) were incorrect.\n",ce+ie,ce,ie);
 }
 
 void yytrue (char * type) 
@@ -304,7 +302,7 @@ void yyerror(char *s)
 
 //Αναγκαίες εντολές για να γίνεται το debugging στον Bison
 #ifdef YYDEBUG
-  yydebug = 1;
+  int yydebug = 1;
 #endif
 
 /* H synarthsh main pou apotelei kai to shmeio ekkinhshs tou programmatos.
