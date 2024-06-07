@@ -7,6 +7,7 @@ func main()
 {
 int a;
 int b;
+myArr[3];
 scan(a);
 scan(b);
 myAdd(a,b);
@@ -23,5 +24,6 @@ func myAdd(int num1, int num2)
 int sum;
 sum = a + b;
 len("SuperString");
+cmp("a", "b");
 print("Sum is: ", sum)
 }

@@ -59,6 +59,7 @@ int line=1;
      KEYWORD_VAR_TYPE
      KEYWORD_SCAN
      KEYWORD_LEN
+     KEYWORD_CMP
      PAR_START PAR_END
      BRACE_START BRACE_END
      LOGICAL_OR LOGICAL_AND
@@ -121,6 +122,7 @@ in_de_crement_operator:
 expr_proc:
       expr_part operator expr_part EQ expr_part
     | expr_part operator expr_part
+    | expr_part operator expr_proc
     | expr_part in_de_crement_operator
     | in_de_crement_operator expr_part
     ;
@@ -156,11 +158,21 @@ loops:
 
 // Εδώ ορίζεται τι μπορεί να είναι ορίσματα μιας συνάρτησης
 arguments:
-      arguments expr_part COMMA expr_part
-    | expr_part COMMA expr_part
+    expr_part
+    | expr_part COMMA arr_help
     | KEYWORD_VOID
     |
     ;
+
+arr   : BRACKET_START arr_help BRACKET_END SEMI
+      | BRACKET_START arr_help BRACKET_END SEMI
+      | BRACKET_START arr_help BRACKET_END SEMI
+      | IDENTIFIER BRACKET_START INT BRACKET_END SEMI
+      ;
+
+arr_help: expr_part
+            | expr_part COMMA expr_part
+            ;
 
 // Εδώ ορίζεται τι θεωρείται ορισμός μιας συνάρτησης
 func_par:
@@ -199,9 +211,13 @@ scan:
     |
     ;
 len:
-    KEYWORD_LEN PAR_START PAR_END SEMI
-    | KEYWORD_LEN PAR_START expr_part PAR_END SEMI 
+    KEYWORD_LEN PAR_START expr_part PAR_END SEMI 
+    |
     ;
+cmp:
+    KEYWORD_CMP PAR_START expr_part COMMA expr_part PAR_END SEMI
+    |
+    ; 
 cases:
     KEYWORD_CASE COLON valid NEWLINE cases
     | KEYWORD_CASE COLON valid NEWLINE
@@ -285,6 +301,8 @@ valid:
    | conditionals     { ce++; yytrue("conditional clause");  }
    | scan             { ce++; yytrue("scan");  }
    | len              { ce++; yytrue("len");  }
+   | cmp              { ce++; yytrue("cmp");  }
+   | arr              { ce++; yytrue("array"); }
    | NEWLINE          { line++; }
    | EOP              { exp_report(ce,ie); }
    | error            { ie++;}

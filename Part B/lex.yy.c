@@ -825,94 +825,95 @@ YY_RULE_SETUP
       else if ( !strcmp(yytext,"double"  ) ) {cw++; return KEYWORD_VAR_TYPE;}
       else if ( !strcmp(yytext,"scan"  ) ) {cw++; return KEYWORD_SCAN;}
       else if ( !strcmp(yytext,"len"  ) ) {cw++; return KEYWORD_LEN;}
+      else if ( !strcmp(yytext,"cmp"  ) ) {cw++; return KEYWORD_CMP;}
       else                                   {cw++; return IDENTIFIER;}
 }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 114 "flex.l"
+#line 115 "flex.l"
 { if (!strcmp(yytext, "!=")) {cw++; return NEQ;        } else    { return EXCLA;  }}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 115 "flex.l"
+#line 116 "flex.l"
 { if (!strcmp(yytext, "==")) {cw++; return EQQ;        } else    { return EQ;     }}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 116 "flex.l"
+#line 117 "flex.l"
 { if (!strcmp(yytext, "/=")) {cw++; return EQ_DIV;     } else    { return DIV;    }}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 117 "flex.l"
+#line 118 "flex.l"
 { if (!strcmp(yytext, "*=")) {cw++; return EQ_MULTI;   } else    { return MULTI;  }}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 118 "flex.l"
+#line 119 "flex.l"
 { if (!strcmp(yytext, "<=")) {cw++; return LESSER_EQ;  } else    { return LESSER; }}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 119 "flex.l"
+#line 120 "flex.l"
 { if (!strcmp(yytext, ">=")) {cw++; return GREATER_EQ; } else    { return GREATER;}}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 120 "flex.l"
+#line 121 "flex.l"
 { if (!strcmp(yytext, "&&")) {cw++; return LOGICAL_AND;} else    { return AMPER;  }}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 121 "flex.l"
+#line 122 "flex.l"
 { if (!strcmp(yytext, "--")) {cw++; return MINUSMINUS; } else if (!strcmp(yytext, "-=")) { return EQ_MINUS; } else { return MINUS;}}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 122 "flex.l"
+#line 123 "flex.l"
 { if (!strcmp(yytext, "++")) {cw++; return PLUSPLUS;   } else if (!strcmp(yytext, "+=")) { return EQ_PLUS;  } else { return PLUS; }}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 123 "flex.l"
+#line 124 "flex.l"
 { }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 124 "flex.l"
+#line 125 "flex.l"
 {}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 125 "flex.l"
+#line 126 "flex.l"
 {return NEWLINE; }
 	YY_BREAK
 /*Εδώ το flex "πιάνει" οποιονδήποτε άλλο χαρακτήρα που δεν περιγράφεται απο
   τις παραπάνω κανονικές εκφράσεις.*/
 case 30:
 YY_RULE_SETUP
-#line 128 "flex.l"
+#line 129 "flex.l"
 { BEGIN(PREPANIC); strcpy(panic_cause_char,yytext); iw++; return UNKNOWN;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 129 "flex.l"
+#line 130 "flex.l"
 { BEGIN(PANIC); printf("Unknown word: '%s%s",panic_cause_char,yytext);}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 130 "flex.l"
+#line 131 "flex.l"
 { printf("'\n"); BEGIN(INITIAL);}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 131 "flex.l"
+#line 132 "flex.l"
 { printf("'\n"); BEGIN(INITIAL);}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 132 "flex.l"
+#line 133 "flex.l"
 { ECHO; }
 	YY_BREAK
 /*Εδώ καλούμε ένα τμήμα κώδικα που μας βοηθά να δώσουμε ένα token στον bison
@@ -921,7 +922,7 @@ YY_RULE_SETUP
   exp_report() στο bison-SA.y, για να ανεφέρουμε τον αριθμό των σωστών και
   λανθασμένων λέξεων και εκφράσεων.*/
 case YY_STATE_EOF(INITIAL):
-#line 138 "flex.l"
+#line 139 "flex.l"
 { BEGIN(REALLYEND);
                     printf("Syntax Report:\nThe program counted (%d) words,\nOf which (%d) were correct,\nAnd (%d) were incorrect.\n",cw+iw,cw, iw);
                     return EOP; }
@@ -930,15 +931,15 @@ case YY_STATE_EOF(INITIAL):
   εκτέλεση του flex, έχουμε ήδη τυπώσει την αναφορά με την exp_report() με το
   bison, και αρχίζουμε να τερματίζουμε το πρόγραμμα συνολικά.*/
 case YY_STATE_EOF(REALLYEND):
-#line 144 "flex.l"
+#line 145 "flex.l"
 {yyterminate();}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 145 "flex.l"
+#line 146 "flex.l"
 ECHO;
 	YY_BREAK
-#line 942 "lex.yy.c"
+#line 943 "lex.yy.c"
 case YY_STATE_EOF(PREPANIC):
 case YY_STATE_EOF(PANIC):
 	yyterminate();
@@ -1825,7 +1826,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 145 "flex.l"
+#line 146 "flex.l"
 
 /* Το πρόγραμμα αυτό δεν έχει main(), καθώς δεν τρέχει αυτόνομα, είναι απλά ο
    λεκτικός αναλυτής, η συντακτική ανάλυση γίνεται από τον bison. */
