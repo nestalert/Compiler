@@ -63,11 +63,10 @@
 
 /* Copy the first part of user declarations.  */
 /* Line 371 of yacc.c  */
-#line 2 "bison.y"
+#line 6 "bison.y"
 
-/* Orismoi kai dhlwseis glwssas C. Otidhpote exei na kanei me orismo h
-   arxikopoihsh metablhtwn & synarthsewn, arxeia header kai dhlwseis #define
-   mpainei se auto to shmeio */
+   /*Αρχεία header (#include...), δηλώσεις define (εδώ δεν υπάρχει κάποια), αρχικοποίηση 
+   μεταβλητών και συναρτήσεων που θα χρησιμοποιήσουμε στο πρόγραμμα*/ 
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -88,11 +87,11 @@ int ie  = 0;
 int function_start_line=0;
 int function_started_flag=0;
 
-// Για την μέτρηση γραμμών
+// Μεταβλητή line για την μέτρηση γραμμών
 int line=1;
 
 /* Line 371 of yacc.c  */
-#line 96 "bison.tab.c"
+#line 95 "bison.tab.c"
 
 # ifndef YY_NULL
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -220,7 +219,7 @@ int yyparse ();
 /* Copy the second part of user declarations.  */
 
 /* Line 390 of yacc.c  */
-#line 224 "bison.tab.c"
+#line 223 "bison.tab.c"
 
 #ifdef short
 # undef short
@@ -565,15 +564,15 @@ static const yytype_uint16 yyrline[] =
        0,    84,    84,    85,    92,    93,    94,    95,    96,    97,
       98,   103,   104,   105,   106,   107,   108,   109,   110,   111,
      112,   113,   114,   117,   118,   119,   124,   125,   126,   127,
-     128,   134,   135,   136,   140,   141,   146,   150,   153,   154,
-     158,   162,   163,   164,   165,   168,   169,   170,   171,   174,
-     175,   180,   181,   186,   187,   188,   189,   190,   191,   196,
-     200,   201,   202,   207,   208,   211,   212,   215,   216,   219,
-     220,   223,   224,   227,   228,   232,   235,   236,   240,   241,
-     245,   246,   247,   248,   249,   250,   251,   254,   255,   260,
-     261,   262,   263,   268,   269,   274,   275,   276,   281,   282,
-     283,   284,   285,   286,   287,   288,   303,   304,   305,   306,
-     307,   308,   309,   310,   311,   312,   313
+     128,   133,   134,   135,   139,   140,   145,   148,   151,   152,
+     156,   160,   161,   162,   163,   166,   167,   168,   169,   172,
+     173,   178,   179,   184,   185,   186,   187,   188,   189,   194,
+     198,   199,   200,   204,   205,   208,   209,   212,   213,   216,
+     217,   220,   221,   224,   225,   229,   232,   233,   237,   238,
+     242,   243,   244,   245,   246,   247,   248,   251,   252,   257,
+     258,   259,   260,   265,   266,   271,   272,   273,   278,   279,
+     280,   281,   282,   283,   284,   285,   300,   301,   302,   303,
+     304,   305,   306,   307,   308,   309,   310
 };
 #endif
 
@@ -1677,61 +1676,61 @@ yyreduce:
 
   case 51:
 /* Line 1792 of yacc.c  */
-#line 180 "bison.y"
+#line 178 "bison.y"
     {ce++; yytrue("arguments"); }
     break;
 
   case 52:
 /* Line 1792 of yacc.c  */
-#line 181 "bison.y"
+#line 179 "bison.y"
     {ce++; yytrue("argument"); }
     break;
 
   case 98:
 /* Line 1792 of yacc.c  */
-#line 281 "bison.y"
+#line 278 "bison.y"
     { ce++; yytrue("return");}
     break;
 
   case 99:
 /* Line 1792 of yacc.c  */
-#line 282 "bison.y"
+#line 279 "bison.y"
     { ce++; yytrue("sizeof");}
     break;
 
   case 100:
 /* Line 1792 of yacc.c  */
-#line 283 "bison.y"
+#line 280 "bison.y"
     { ce++; yytrue("include");}
     break;
 
   case 101:
 /* Line 1792 of yacc.c  */
-#line 284 "bison.y"
+#line 281 "bison.y"
     { ce++; yytrue("expression");}
     break;
 
   case 102:
 /* Line 1792 of yacc.c  */
-#line 285 "bison.y"
+#line 282 "bison.y"
     { ce++; yytrue("assignment");}
     break;
 
   case 103:
 /* Line 1792 of yacc.c  */
-#line 286 "bison.y"
+#line 283 "bison.y"
     { ce++; yytrue("declaration");}
     break;
 
   case 104:
 /* Line 1792 of yacc.c  */
-#line 287 "bison.y"
+#line 284 "bison.y"
     { ce++; yytrue("loop clause");}
     break;
 
   case 105:
 /* Line 1792 of yacc.c  */
-#line 288 "bison.y"
+#line 285 "bison.y"
     { ce++;
                         if( function_started_flag)
                         {
@@ -1751,73 +1750,73 @@ yyreduce:
 
   case 106:
 /* Line 1792 of yacc.c  */
-#line 303 "bison.y"
+#line 300 "bison.y"
     { ce++; yytrue("struct");}
     break;
 
   case 107:
 /* Line 1792 of yacc.c  */
-#line 304 "bison.y"
+#line 301 "bison.y"
     { ce++; yytrue("function declaration");}
     break;
 
   case 108:
 /* Line 1792 of yacc.c  */
-#line 305 "bison.y"
+#line 302 "bison.y"
     { ce++; yytrue("conditional clause");  }
     break;
 
   case 109:
 /* Line 1792 of yacc.c  */
-#line 306 "bison.y"
+#line 303 "bison.y"
     { ce++; yytrue("scan");  }
     break;
 
   case 110:
 /* Line 1792 of yacc.c  */
-#line 307 "bison.y"
+#line 304 "bison.y"
     { ce++; yytrue("len");  }
     break;
 
   case 111:
 /* Line 1792 of yacc.c  */
-#line 308 "bison.y"
+#line 305 "bison.y"
     { ce++; yytrue("cmp");  }
     break;
 
   case 112:
 /* Line 1792 of yacc.c  */
-#line 309 "bison.y"
+#line 306 "bison.y"
     { ce++; yytrue("array"); }
     break;
 
   case 113:
 /* Line 1792 of yacc.c  */
-#line 310 "bison.y"
+#line 307 "bison.y"
     { ce++; yytrue("print statement"); }
     break;
 
   case 114:
 /* Line 1792 of yacc.c  */
-#line 311 "bison.y"
+#line 308 "bison.y"
     { line++; }
     break;
 
   case 115:
 /* Line 1792 of yacc.c  */
-#line 312 "bison.y"
+#line 309 "bison.y"
     { exp_report(ce,ie); }
     break;
 
   case 116:
 /* Line 1792 of yacc.c  */
-#line 313 "bison.y"
+#line 310 "bison.y"
     { ie++;}
     break;
 
 
 /* Line 1792 of yacc.c  */
-#line 1821 "bison.tab.c"
+#line 1820 "bison.tab.c"
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2049,14 +2048,15 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 316 "bison.y"
+#line 313 "bison.y"
 
 
 
 
-// Αυτή η συνάρτηση τυπώνει το πλήθος των σωστών και λάθος λέξεων και εκφράσεων
-// Ενεργοποιήται μόλις ο bison δεχθεί token EOP
-// (End of Parse, δίνεται στο τέλος του αρχείου)
+/* Αυτή η συνάρτηση ενεργοποιείται όταν ο bison δεχτεί token EOP 
+και τυπώνει το πλήθος των σωστών και λάθος λέξεων και εκφράσεων*/
+
+// (End of Parse, στο τέλος του αρχείου)
 void exp_report (int ce,int ie) {
     printf("\n===================\n"
         "\nThe program counted (%d) expressions,\nOf which (%d) were correct,\nAnd (%d) were incorrect.\n",ce+ie,ce,ie);
@@ -2072,14 +2072,15 @@ void yyerror(char *s)
     fprintf(stderr, "(X)\tOn Line:%d \tError: %s\n",line, s);
 }
 
-//Αναγκαίες εντολές για να γίνεται το debugging στον Bison
+//Αναγκαίες εντολές για την εκτέλεση debugging στον Bison
 #ifdef YYDEBUG
   int yydebug = 1;
 #endif
 
-/* H synarthsh main pou apotelei kai to shmeio ekkinhshs tou programmatos.
-   Sthn sygkekrimenh periptwsh apla kalei thn synarthsh yyparse tou Bison
-   gia na ksekinhsei h syntaktikh analysh. */
+
+   /*Η συνάρτηση main, που σηματοδοτεί την εκκίνηση του προγράμματος.
+   Εδώ απλά καλεί την συνάρτηση yyparse του Bison και ξεκινάει η συντακτική
+   ανάλυση*/
 int main(int argc, char* argv[]) 
 {
     FILE *fp;
