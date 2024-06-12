@@ -1,91 +1,32 @@
-//Δήλωση μεταβλητών
+3 + 2;
+15 + 25 + 35;
+testvar + 1;
+var1 + _var2;
+
+func main()
+{
+
 int a;
 int b;
-
-//Εκχώρηση τιμής σε μεταβλητή
-a = -30;
-b = a;
-
-x1, x2 = 0, 1;
-x1, list1 = 0, [1, 2, 3];
-x1, list1, string = 0, [1, 2, 3], "HELLO";
-
-//Δήλωση πινάκων
-pin = [1,2,3];
-pin1 = [1, 2, 3, 4, 5 ];
-pin2 = ["a", "b", "c", "d"];
-
-//Εκτύπωση στοιχείου πίνακα
-print(pin1[0]);
-
-//Συναρτήσεις
-scan(x);
-scan(MyVariable); 
-
-len([10, 20, 30, 40, 50]);
-len("Τhis is a string");
-len(StringVariable); 
-
-cmp("test", "best");
-cmp(str1, str2);
-
-print("Hello World");
-print(x, "=", 100); 
-
-print(cmp(str1, str2));
-print(len("This is a string"));
-
-//Δήλωση συνάρτησης
-func myfunc(int varA, int varB)
+myArr[3];
+print("I can print %d",a);
+print(myAdd);
+scan(a);
+scan(b);
+myAdd(a,b);
+while(a<b)
 {
- print("a = ", varA);
- print("b = ", varB);
-} 
+	a++;
+	printf(a);
+};
+return;
+}
 
-//Κάλεσμα συνάρτησης
-myfunc(10,20); 
-myfunc(var1,var2,var3); 
-myfunc("hello"); 
-
-//Αριθμητικές Πράξεις Ακεραίων
-1 + 2
--5 + 10
-1 - 4
-2 * 4
-4 / 2
-4 / 5
-15 + 3 - 9
-
-//Εκχώρηση αποτελέσματος αριθμητικής πράξης σε μεταβλητή
-var1 = 3 + 7;
-
-
-//Συγκρίσεις  
-5 == 52
-1 < 2
-
-//Δοκιμή εκχώρησης και σύγκρισης μεταβλητών
-i = 2;
-y = 3;
-i < y
-i > y
-i == y
-
-//Συνθήκες
-if (var == var1) print("Value of expression is var1");
-if (x < y) { print(x); print(y); print(z); } 
-
-//Επανάληψη while
-while (i < w)
+func myAdd(int num1, int num2)
 {
- print("hello");
- if (var == var1) {
- 	print("Hello");
- }
-} 
-
-//Επανάληψη for
-for (i = 0; i < w; i++)
-{
- print("i = ", i);
+int sum;
+sum = a + b;
+len("SuperString");
+cmp("a", "b");
+print("Sum is: ", sum)
 }
