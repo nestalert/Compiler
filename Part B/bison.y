@@ -18,9 +18,10 @@ TMHMA Β2
 #include <string.h>
 
 extern int yylex(void);
-extern int yyparse(void);
+extern int yyparse();
 
 extern FILE *yyin;
+extern FILE *yyout;
 
 void yyerror(char *);
 void exp_report(int,int);
@@ -201,8 +202,8 @@ assignment:
 
 // Ο κανόνας για τις επιστροφές συναρτήσεων (με το return) και για τα includes 
 return:
-    KEYWORD_RET expr_proc
-    |
+    KEYWORD_RET SEMI
+    | KEYWORD_RET expr_part SEMI
     |
     ;
 
@@ -350,15 +351,16 @@ void yyerror(char *s)
    ανάλυση*/
 int main(int argc, char* argv[]) 
 {
-    FILE *fp;
+    FILE *fp = NULL;
     if(argc<2)
     {
         printf("No arguments found, defaulting to input.txt...\n");
         fp = fopen("input.txt","r");
     }
-    if(argc==2)
-         fp = fopen(argv[1],"r");
+    if(argc>1)
+        fp = fopen(argv[1],"r");
     yyin = fp;
     printf("\nBeginning analysis:\n");
     yyparse();
+    fclose(fp);
 }
