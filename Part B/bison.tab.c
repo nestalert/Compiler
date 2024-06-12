@@ -63,7 +63,7 @@
 
 /* Copy the first part of user declarations.  */
 /* Line 371 of yacc.c  */
-#line 6 "bison.y"
+#line 12 "bison.y"
 
    /*Αρχεία header (#include...), δηλώσεις define (εδώ δεν υπάρχει κάποια), αρχικοποίηση 
    μεταβλητών και συναρτήσεων που θα χρησιμοποιήσουμε στο πρόγραμμα*/ 
@@ -561,18 +561,18 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    84,    84,    85,    92,    93,    94,    95,    96,    97,
-      98,   103,   104,   105,   106,   107,   108,   109,   110,   111,
-     112,   113,   114,   117,   118,   119,   124,   125,   126,   127,
-     128,   133,   134,   135,   139,   140,   145,   148,   151,   152,
-     156,   160,   161,   162,   163,   166,   167,   168,   169,   172,
-     173,   178,   179,   184,   185,   186,   187,   188,   189,   194,
-     198,   199,   200,   204,   205,   208,   209,   212,   213,   216,
-     217,   220,   221,   224,   225,   229,   232,   233,   237,   238,
-     242,   243,   244,   245,   246,   247,   248,   251,   252,   257,
-     258,   259,   260,   265,   266,   271,   272,   273,   278,   279,
-     280,   281,   282,   283,   284,   285,   300,   301,   302,   303,
-     304,   305,   306,   307,   308,   309,   310
+       0,    90,    90,    91,    98,    99,   100,   101,   102,   103,
+     104,   109,   110,   111,   112,   113,   114,   115,   116,   117,
+     118,   119,   120,   123,   124,   125,   130,   131,   132,   133,
+     134,   139,   140,   141,   145,   146,   151,   154,   157,   158,
+     162,   166,   167,   168,   169,   172,   173,   174,   175,   178,
+     179,   184,   185,   190,   191,   192,   193,   194,   195,   200,
+     204,   205,   206,   210,   211,   214,   215,   218,   219,   222,
+     223,   226,   227,   230,   231,   235,   238,   239,   243,   244,
+     248,   249,   250,   251,   252,   253,   254,   257,   258,   263,
+     264,   265,   266,   271,   272,   277,   278,   279,   284,   285,
+     286,   287,   288,   289,   290,   291,   306,   307,   308,   309,
+     310,   311,   312,   313,   314,   315,   316
 };
 #endif
 
@@ -1670,67 +1670,67 @@ yyreduce:
     {
         case 10:
 /* Line 1792 of yacc.c  */
-#line 98 "bison.y"
+#line 104 "bison.y"
     { printf("(X) \tLine:  %d \t",line); }
     break;
 
   case 51:
 /* Line 1792 of yacc.c  */
-#line 178 "bison.y"
+#line 184 "bison.y"
     {ce++; yytrue("arguments"); }
     break;
 
   case 52:
 /* Line 1792 of yacc.c  */
-#line 179 "bison.y"
+#line 185 "bison.y"
     {ce++; yytrue("argument"); }
     break;
 
   case 98:
 /* Line 1792 of yacc.c  */
-#line 278 "bison.y"
+#line 284 "bison.y"
     { ce++; yytrue("return");}
     break;
 
   case 99:
 /* Line 1792 of yacc.c  */
-#line 279 "bison.y"
+#line 285 "bison.y"
     { ce++; yytrue("sizeof");}
     break;
 
   case 100:
 /* Line 1792 of yacc.c  */
-#line 280 "bison.y"
+#line 286 "bison.y"
     { ce++; yytrue("include");}
     break;
 
   case 101:
 /* Line 1792 of yacc.c  */
-#line 281 "bison.y"
+#line 287 "bison.y"
     { ce++; yytrue("expression");}
     break;
 
   case 102:
 /* Line 1792 of yacc.c  */
-#line 282 "bison.y"
+#line 288 "bison.y"
     { ce++; yytrue("assignment");}
     break;
 
   case 103:
 /* Line 1792 of yacc.c  */
-#line 283 "bison.y"
+#line 289 "bison.y"
     { ce++; yytrue("declaration");}
     break;
 
   case 104:
 /* Line 1792 of yacc.c  */
-#line 284 "bison.y"
+#line 290 "bison.y"
     { ce++; yytrue("loop clause");}
     break;
 
   case 105:
 /* Line 1792 of yacc.c  */
-#line 285 "bison.y"
+#line 291 "bison.y"
     { ce++;
                         if( function_started_flag)
                         {
@@ -1750,67 +1750,67 @@ yyreduce:
 
   case 106:
 /* Line 1792 of yacc.c  */
-#line 300 "bison.y"
+#line 306 "bison.y"
     { ce++; yytrue("struct");}
     break;
 
   case 107:
 /* Line 1792 of yacc.c  */
-#line 301 "bison.y"
+#line 307 "bison.y"
     { ce++; yytrue("function declaration");}
     break;
 
   case 108:
 /* Line 1792 of yacc.c  */
-#line 302 "bison.y"
+#line 308 "bison.y"
     { ce++; yytrue("conditional clause");  }
     break;
 
   case 109:
 /* Line 1792 of yacc.c  */
-#line 303 "bison.y"
+#line 309 "bison.y"
     { ce++; yytrue("scan");  }
     break;
 
   case 110:
 /* Line 1792 of yacc.c  */
-#line 304 "bison.y"
+#line 310 "bison.y"
     { ce++; yytrue("len");  }
     break;
 
   case 111:
 /* Line 1792 of yacc.c  */
-#line 305 "bison.y"
+#line 311 "bison.y"
     { ce++; yytrue("cmp");  }
     break;
 
   case 112:
 /* Line 1792 of yacc.c  */
-#line 306 "bison.y"
+#line 312 "bison.y"
     { ce++; yytrue("array"); }
     break;
 
   case 113:
 /* Line 1792 of yacc.c  */
-#line 307 "bison.y"
+#line 313 "bison.y"
     { ce++; yytrue("print statement"); }
     break;
 
   case 114:
 /* Line 1792 of yacc.c  */
-#line 308 "bison.y"
+#line 314 "bison.y"
     { line++; }
     break;
 
   case 115:
 /* Line 1792 of yacc.c  */
-#line 309 "bison.y"
+#line 315 "bison.y"
     { exp_report(ce,ie); }
     break;
 
   case 116:
 /* Line 1792 of yacc.c  */
-#line 310 "bison.y"
+#line 316 "bison.y"
     { ie++;}
     break;
 
@@ -2048,7 +2048,7 @@ yyreturn:
 
 
 /* Line 2055 of yacc.c  */
-#line 313 "bison.y"
+#line 319 "bison.y"
 
 
 
@@ -2092,7 +2092,6 @@ int main(int argc, char* argv[])
     if(argc==2)
          fp = fopen(argv[1],"r");
     yyin = fp;
-    // Set Flex to read from it instead of defaulting to STDIN:
     printf("\nBeginning analysis:\n");
     yyparse();
 }
