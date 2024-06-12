@@ -1,11 +1,19 @@
-
-
-/* H anagnwsh periorizetai se ena mono arxeio kai termatizei sto prwto EOF */
+/*
+ΕΡΓΑΣΤΗΡΙΟ ΜΕΤΑΓΛΩΤΤΙΣΤΩΝ
+2023-2024
+TMHMA Β2
+ΟΜΑΔΑ 1
+ΦΡΑΓΚΟΣ ΜΑΡΙΝΟΣ
+ΦΡΙΛΙΓΚΟΣ ΓΡΗΓΟΡΙΟΣ
+ΒΡΟΧΑΡΗΣ ΑΝΤΩΝΙΟΣ
+ΦΑΣΣΟΥ ΚΟΝΤΟΔΗΜΑΚΗ ΙΦΙΓΕΝΕΙΑ ΓΕΩΡΓΙΑ
+ΔΙΑΝΝΗΣ ΙΩΑΝΝΗΣ
+*/
+/*Το πρόγραμμα διαβάζει μόνο ένα αρχείο και στο πρώτο EOF τερματίζει*/
 %option noyywrap
 
-/* Kwdikas C gia orismo twn apaitoumenwn header files kai twn metablhtwn.
-   Otidhpote anamesa sta %{ kai %} metaferetai autousio sto arxeio C pou
-   tha dhmiourghsei to Flex. */
+   /*Ορισμός των header files (#include...) και μεταβλητών. Οτιδήποτε ανάμεσα στα %{ %} μεταφέρεται όπως είναι στο .c αρχείο που θα 
+   δημιουργήσει το flex*/
 
 %{
 
@@ -14,16 +22,16 @@
 #include <stdlib.h>
 #include "bison.tab.h"
 
-// Αρχικοποιούμε τις μεταβλητές για το άθροισμα των σωστών και λάθος λέξεων
+// Αρχικοποίηση μεταβλητών για το άθροισμα των σωστών (cw) και λάθος (iw) λέξεων
 int cw = 0;
 int iw = 0;
-// Για να καταφέρνουμε να δίνουμε στον χρήστη σωστό output.
+// Για να δίνουμε στον χρήστη σωστό output.
 char panic_cause_char[100];
 
 %}
-/* Onomata kai antistoixoi orismoi (ypo morfh kanonikhs ekfrashs).
-   Meta apo auto, mporei na ginei xrhsh twn onomatwn (aristera) anti twn,
-   synhthws idiaiterws makroskelwn kai dysnohtwn, kanonikwn ekfrasewn */
+   /*Ονόματα και αντίστοιχοι ορισμοί. Μετά υπάρχει δυνατότητα για χρήση των ονομάτων 
+   (PAR_END, PAR_START...) αντί για χρήση κανονικών εκφράσεων, που συχνά είναι μακροσκελείς*/
+
 
 PAR_END              \)
 PAR_START            \(
@@ -62,9 +70,10 @@ WHITESPACE           [ \t]
 %x PREPANIC
 %x PANIC
 
-/* Gia kathe pattern (aristera) pou tairiazei ekteleitai o antistoixos
-   kwdikas mesa sta agkistra. H entolh return epitrepei thn epistrofh
-   mias arithmhtikhs timhs mesw ths synarthshs yylex() */
+
+
+/*Για κάθε pattern ({MOD}, {POW}...) που ταιριάζει, εκτελείται ο αντίστοιχος κώδικας στα άγκιστρα. 
+Με το return επιτρέπεται η επιστροφή μίας αριθμιτικής τιμής μέσα από την yylex() */
 
 
 %%
@@ -125,7 +134,7 @@ WHITESPACE           [ \t]
 {WHITESPACE}    { }
 {COMMENT}       {}
 \n              {return NEWLINE; }
- /*Εδώ το flex "πιάνει" οποιονδήποτε άλλο χαρακτήρα που δεν περιγράφεται απο
+ /*Εδώ το flex εντοπίζει οποιονδήποτε χαρακτήρα που δεν περιγράφεται απο
   τις παραπάνω κανονικές εκφράσεις.*/
 <INITIAL>.  { BEGIN(PREPANIC); strcpy(panic_cause_char,yytext); iw++; return UNKNOWN;}
 <PREPANIC>. { BEGIN(PANIC); printf("Unknown word: '%s%s",panic_cause_char,yytext);}
@@ -133,17 +142,15 @@ WHITESPACE           [ \t]
 <PANIC>\n           { printf("'\n"); BEGIN(INITIAL);}
 <PANIC>.            { ECHO; }
  /*Εδώ καλούμε ένα τμήμα κώδικα που μας βοηθά να δώσουμε ένα token στον bison
-  για να δηλώσουμε το τέλος του αρχείου, αποτρέποντας όμως τον bison να
-  τερματίζει άμεσα την εκτέλεση. Έτσι, καταφέρνουμε να εκτελούμε την συνάρτηση
-  exp_report() στο bison-SA.y, για να ανεφέρουμε τον αριθμό των σωστών και
+  για να δηλώσουμε το τέλος του αρχείου, χωρίς όμως να τερματίζεται άμεσα η εκτέλεση του bison.
+  Έτσι, καταφέρνουμε να εκτελούμε την συνάρτηση exp_report() στο bison.y, για να ανεφέρουμε τον αριθμό των σωστών και
   λανθασμένων λέξεων και εκφράσεων.*/
 <INITIAL><<EOF>>  { BEGIN(REALLYEND);
                     printf("Syntax Report:\nThe program counted (%d) words,\nOf which (%d) were correct,\nAnd (%d) were incorrect.\n",cw+iw,cw, iw);
                     return EOP; }
- /*Εδώ, μετά την πάροδο των προηγούμενων, "πραγματικά" τερματίζουμε την
-  εκτέλεση του flex, έχουμε ήδη τυπώσει την αναφορά με την exp_report() με το
-  bison, και αρχίζουμε να τερματίζουμε το πρόγραμμα συνολικά.*/
+ /*Εδώ, μετά την πάροδο των προηγούμενων, τερματίζουμε την
+  εκτέλεση του flex, έχουμε ήδη τυπώσει την αναφορά με την exp_report() με το bison.*/
 <REALLYEND><<EOF>> {yyterminate();}
 %%
-/* Το πρόγραμμα αυτό δεν έχει main(), καθώς δεν τρέχει αυτόνομα, είναι απλά ο
+/* Δεν υπάρχει main(), καθώς δεν τρέχει αυτόνομα, είναι απλά ο
    λεκτικός αναλυτής, η συντακτική ανάλυση γίνεται από τον bison. */

@@ -452,36 +452,44 @@ static char *yy_last_accepting_cpos;
 char *yytext;
 #line 1 "flex.l"
 #define INITIAL 0
-/* H anagnwsh periorizetai se ena mono arxeio kai termatizei sto prwto EOF */
-/* Kwdikas C gia orismo twn apaitoumenwn header files kai twn metablhtwn.
-   Otidhpote anamesa sta %{ kai %} metaferetai autousio sto arxeio C pou
-   tha dhmiourghsei to Flex. */
-#line 11 "flex.l"
+/*
+ΕΡΓΑΣΤΗΡΙΟ ΜΕΤΑΓΛΩΤΤΙΣΤΩΝ
+2023-2024
+TMHMA Β2
+ΟΜΑΔΑ 1
+ΦΡΑΓΚΟΣ ΜΑΡΙΝΟΣ
+ΦΡΙΛΙΓΚΟΣ ΓΡΗΓΟΡΙΟΣ
+ΒΡΟΧΑΡΗΣ ΑΝΤΩΝΙΟΣ
+ΦΑΣΣΟΥ ΚΟΝΤΟΔΗΜΑΚΗ ΙΦΙΓΕΝΕΙΑ ΓΕΩΡΓΙΑ
+ΔΙΑΝΝΗΣ ΙΩΑΝΝΗΣ
+*/
+/*Το πρόγραμμα διαβάζει μόνο ένα αρχείο και στο πρώτο EOF τερματίζει*/
+/*Ορισμός των header files (#include...) και μεταβλητών. Οτιδήποτε ανάμεσα στα %{ %} μεταφέρεται όπως είναι στο .c αρχείο που θα 
+δημιουργήσει το flex*/
+#line 19 "flex.l"
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "bison.tab.h"
 
-// Αρχικοποιούμε τις μεταβλητές για το άθροισμα των σωστών και λάθος λέξεων
+// Αρχικοποίηση μεταβλητών για το άθροισμα των σωστών (cw) και λάθος (iw) λέξεων
 int cw = 0;
 int iw = 0;
-// Για να καταφέρνουμε να δίνουμε στον χρήστη σωστό output.
+// Για να δίνουμε στον χρήστη σωστό output.
 char panic_cause_char[100];
 
-/* Onomata kai antistoixoi orismoi (ypo morfh kanonikhs ekfrashs).
-   Meta apo auto, mporei na ginei xrhsh twn onomatwn (aristera) anti twn,
-   synhthws idiaiterws makroskelwn kai dysnohtwn, kanonikwn ekfrasewn */
+/*Ονόματα και αντίστοιχοι ορισμοί. Μετά υπάρχει δυνατότητα για χρήση των ονομάτων 
+(PAR_END, PAR_START...) αντί για χρήση κανονικών εκφράσεων, που συχνά είναι μακροσκελείς*/
 #define REALLYEND 1
 
 #define PREPANIC 2
 
 #define PANIC 3
 
-/* Gia kathe pattern (aristera) pou tairiazei ekteleitai o antistoixos
-   kwdikas mesa sta agkistra. H entolh return epitrepei thn epistrofh
-   mias arithmhtikhs timhs mesw ths synarthshs yylex() */
-#line 485 "lex.yy.c"
+/*Για κάθε pattern ({MOD}, {POW}...) που ταιριάζει, εκτελείται ο αντίστοιχος κώδικας στα άγκιστρα. 
+Με το return επιτρέπεται η επιστροφή μίας αριθμιτικής τιμής μέσα από την yylex() */
+#line 493 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -632,9 +640,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 70 "flex.l"
+#line 79 "flex.l"
 
-#line 638 "lex.yy.c"
+#line 646 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -719,87 +727,87 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 71 "flex.l"
+#line 80 "flex.l"
 {cw++; return MOD;                     }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 72 "flex.l"
+#line 81 "flex.l"
 {cw++; return POW;                     }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 73 "flex.l"
+#line 82 "flex.l"
 {cw++; return DOT;                     }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 74 "flex.l"
+#line 83 "flex.l"
 {cw++; return SEMI;                    }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 75 "flex.l"
+#line 84 "flex.l"
 {cw++; return HASH;                    }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 76 "flex.l"
+#line 85 "flex.l"
 {cw++; return COMMA;                   }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 77 "flex.l"
+#line 86 "flex.l"
 {cw++; return PAR_END;                 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 78 "flex.l"
+#line 87 "flex.l"
 {cw++; return PAR_START;               }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 79 "flex.l"
+#line 88 "flex.l"
 {cw++; return BRACE_END;               }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 80 "flex.l"
+#line 89 "flex.l"
 {cw++; return LOGICAL_OR;              }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 81 "flex.l"
+#line 90 "flex.l"
 {cw++; return BRACE_START;             }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 82 "flex.l"
+#line 91 "flex.l"
 {cw++; return BRACKET_END;             }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 83 "flex.l"
+#line 92 "flex.l"
 {cw++; return BRACKET_START;           }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 84 "flex.l"
+#line 93 "flex.l"
 {cw++; return FLOAT;   }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 85 "flex.l"
+#line 94 "flex.l"
 {cw++; return STR;  }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 86 "flex.l"
+#line 95 "flex.l"
 {cw++; return INT;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 87 "flex.l"
+#line 96 "flex.l"
 {
       if      ( !strcmp(yytext,"do"      ) ) {cw++; return KEYWORD;}
       else if ( !strcmp(yytext,"while"   ) ) {cw++; return KEYWORD;}
@@ -832,115 +840,113 @@ YY_RULE_SETUP
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 116 "flex.l"
+#line 125 "flex.l"
 { if (!strcmp(yytext, "!=")) {cw++; return NEQ;        } else    { return EXCLA;  }}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 117 "flex.l"
+#line 126 "flex.l"
 { if (!strcmp(yytext, "==")) {cw++; return EQQ;        } else    { return EQ;     }}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 118 "flex.l"
+#line 127 "flex.l"
 { if (!strcmp(yytext, "/=")) {cw++; return EQ_DIV;     } else    { return DIV;    }}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 119 "flex.l"
+#line 128 "flex.l"
 { if (!strcmp(yytext, "*=")) {cw++; return EQ_MULTI;   } else    { return MULTI;  }}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 120 "flex.l"
+#line 129 "flex.l"
 { if (!strcmp(yytext, "<=")) {cw++; return LESSER_EQ;  } else    { return LESSER; }}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 121 "flex.l"
+#line 130 "flex.l"
 { if (!strcmp(yytext, ">=")) {cw++; return GREATER_EQ; } else    { return GREATER;}}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 122 "flex.l"
+#line 131 "flex.l"
 { if (!strcmp(yytext, "&&")) {cw++; return LOGICAL_AND;} else    { return AMPER;  }}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 123 "flex.l"
+#line 132 "flex.l"
 { if (!strcmp(yytext, "--")) {cw++; return MINUSMINUS; } else if (!strcmp(yytext, "-=")) { return EQ_MINUS; } else { return MINUS;}}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 124 "flex.l"
+#line 133 "flex.l"
 { if (!strcmp(yytext, "++")) {cw++; return PLUSPLUS;   } else if (!strcmp(yytext, "+=")) { return EQ_PLUS;  } else { return PLUS; }}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 125 "flex.l"
+#line 134 "flex.l"
 { }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 126 "flex.l"
+#line 135 "flex.l"
 {}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 127 "flex.l"
+#line 136 "flex.l"
 {return NEWLINE; }
 	YY_BREAK
-/*Εδώ το flex "πιάνει" οποιονδήποτε άλλο χαρακτήρα που δεν περιγράφεται απο
+/*Εδώ το flex εντοπίζει οποιονδήποτε χαρακτήρα που δεν περιγράφεται απο
   τις παραπάνω κανονικές εκφράσεις.*/
 case 30:
 YY_RULE_SETUP
-#line 130 "flex.l"
+#line 139 "flex.l"
 { BEGIN(PREPANIC); strcpy(panic_cause_char,yytext); iw++; return UNKNOWN;}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 131 "flex.l"
+#line 140 "flex.l"
 { BEGIN(PANIC); printf("Unknown word: '%s%s",panic_cause_char,yytext);}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 132 "flex.l"
+#line 141 "flex.l"
 { printf("'\n"); BEGIN(INITIAL);}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 133 "flex.l"
+#line 142 "flex.l"
 { printf("'\n"); BEGIN(INITIAL);}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 134 "flex.l"
+#line 143 "flex.l"
 { ECHO; }
 	YY_BREAK
 /*Εδώ καλούμε ένα τμήμα κώδικα που μας βοηθά να δώσουμε ένα token στον bison
-  για να δηλώσουμε το τέλος του αρχείου, αποτρέποντας όμως τον bison να
-  τερματίζει άμεσα την εκτέλεση. Έτσι, καταφέρνουμε να εκτελούμε την συνάρτηση
-  exp_report() στο bison-SA.y, για να ανεφέρουμε τον αριθμό των σωστών και
+  για να δηλώσουμε το τέλος του αρχείου, χωρίς όμως να τερματίζεται άμεσα η εκτέλεση του bison.
+  Έτσι, καταφέρνουμε να εκτελούμε την συνάρτηση exp_report() στο bison.y, για να ανεφέρουμε τον αριθμό των σωστών και
   λανθασμένων λέξεων και εκφράσεων.*/
 case YY_STATE_EOF(INITIAL):
-#line 140 "flex.l"
+#line 148 "flex.l"
 { BEGIN(REALLYEND);
                     printf("Syntax Report:\nThe program counted (%d) words,\nOf which (%d) were correct,\nAnd (%d) were incorrect.\n",cw+iw,cw, iw);
                     return EOP; }
 	YY_BREAK
-/*Εδώ, μετά την πάροδο των προηγούμενων, "πραγματικά" τερματίζουμε την
-  εκτέλεση του flex, έχουμε ήδη τυπώσει την αναφορά με την exp_report() με το
-  bison, και αρχίζουμε να τερματίζουμε το πρόγραμμα συνολικά.*/
+/*Εδώ, μετά την πάροδο των προηγούμενων, τερματίζουμε την
+  εκτέλεση του flex, έχουμε ήδη τυπώσει την αναφορά με την exp_report() με το bison.*/
 case YY_STATE_EOF(REALLYEND):
-#line 146 "flex.l"
+#line 153 "flex.l"
 {yyterminate();}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 147 "flex.l"
+#line 154 "flex.l"
 ECHO;
 	YY_BREAK
-#line 944 "lex.yy.c"
+#line 950 "lex.yy.c"
 case YY_STATE_EOF(PREPANIC):
 case YY_STATE_EOF(PANIC):
 	yyterminate();
@@ -1827,7 +1833,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 147 "flex.l"
+#line 154 "flex.l"
 
-/* Το πρόγραμμα αυτό δεν έχει main(), καθώς δεν τρέχει αυτόνομα, είναι απλά ο
+/* Δεν υπάρχει main(), καθώς δεν τρέχει αυτόνομα, είναι απλά ο
    λεκτικός αναλυτής, η συντακτική ανάλυση γίνεται από τον bison. */
